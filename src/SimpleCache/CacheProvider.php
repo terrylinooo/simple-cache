@@ -13,18 +13,33 @@ declare(strict_types=1);
 namespace Shieldon\SimpleCache;
 
 use Psr\SimpleCache\CacheInterface;
+use DateInterval;
+use Datetime;
 
 /**
- * The abstract class for service providers.
+ * The abstract class for cache service providers.
  */
 abstract class CacheProvider implements CacheInterface
 {
+    use AssertTrait;
+
     /**
      * @inheritDoc
      */
     public function get($key, $default = null)
     {
+        $data = $this->doGet($key);
 
+        if (!empty($data)) {
+            if ($this->isExpired($data['ttl'], $data['timestamp'])) {
+                $this->delete($key);
+                $data['value'] = $default;
+            }
+
+            $default = $data['value'];
+        }
+
+        return $default;
     }
 
     /**
@@ -32,7 +47,12 @@ abstract class CacheProvider implements CacheInterface
      */
     public function set($key, $value, $ttl = null)
     {
+        $this->assertArgumentString($key);
+        $this->assertValidTypeOfTtl($ttl);
 
+        $timestamp = time();
+
+        return $this->doSet($key, $value, $ttl, $timestamp);
     }
 
     /**
@@ -40,7 +60,9 @@ abstract class CacheProvider implements CacheInterface
      */
     public function delete($key)
     {
+        $this->assertArgumentString($key);
 
+        return $this->doDelete($key);
     }
 
     /**
@@ -48,7 +70,7 @@ abstract class CacheProvider implements CacheInterface
      */
     public function clear()
     {
-
+        return $this->doClear();
     }
 
     /**
@@ -56,7 +78,13 @@ abstract class CacheProvider implements CacheInterface
      */
     public function has($key)
     {
-        
+        $this->assertArgumentString($key);
+
+        if ($this->doHas($key)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -64,7 +92,15 @@ abstract class CacheProvider implements CacheInterface
      */
     public function getMultiple($keys, $default = null)
     {
-        
+        $this->assertArgumentIterable($keys);
+
+        $data = [];
+
+        foreach ($keys as $key) {
+            $data[$key] = $this->get($key, $default);
+        }
+
+        return $data;
     }
 
     /**
@@ -72,7 +108,15 @@ abstract class CacheProvider implements CacheInterface
      */
     public function setMultiple($values, $ttl = null)
     {
+        $this->assertArgumentIterable($values);
 
+        foreach ($values as $key => $value) {
+            if (!$this->set($key, $value, $ttl)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -80,6 +124,102 @@ abstract class CacheProvider implements CacheInterface
      */
     public function deleteMultiple($keys)
     {
+        $this->assertArgumentIterable($keys);
 
+        foreach ($keys as $key) {
+            if (!$this->doDelete($key)) {
+                return false;
+            }
+        }
+
+        return true;
     }
+
+    /**
+     * Check if the TTL is expired or not.
+     *
+     * @param int|null|DateInterval $ttl       The time to live of a cached data.
+     * @param int                   $timestamp The unix timesamp that want to check.
+     * 
+     * @return bool
+     */
+    protected function isExpired($ttl, int $timestamp): bool
+    {
+        $now = time();
+
+        if (is_null($ttl)) {
+            return false;
+
+        } elseif (is_integer($ttl) && ($now - $timestamp < $ttl)) {
+            return false;
+
+        } elseif ($ttl instanceof DateInterval) {
+            $datetimeObj = new DateTime();
+            $datetimeObj->add($ttl);
+            $datetimeObj->getTimestamp();
+
+            if ($now - $timestamp < $datetimeObj->getTimestamp()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Fetch a cache by an extended Cache Driver.
+     *
+     * @param string $key     The key of a cache.
+     * @param mixed  $default Default value to return if the key does not exist.
+     *
+     * @return array The data structure looks like:
+     *
+     * [
+     *   [
+     *     'value'     => (mixed) $value
+     *     'ttl'       => (int)   $ttl,
+     *     'timestamp' => (int)   $timestamp,
+     *   ],
+     *   ...
+     * ]
+     *
+     */
+    abstract protected function doGet(string $key): array;
+
+    /**
+     * Set a cache by an extended Cache Driver.
+     *
+     * @param string $key       The key of a cache.
+     * @param mixed  $value     The value of a cache. (serialized)
+     * @param int    $ttl       The time to live for a cache.
+     * @param int    $timestamp The time to store a cache.
+     *
+     * @return bool
+     */
+    abstract protected function doSet(string $key, $value, int $ttl, int $timestamp): bool;
+
+    /**
+     * Delete a cache by an extended Cache Driver.
+     *
+     * @param string $key The key of a cache.
+     * 
+     * @return bool
+     */
+    abstract protected function doDelete(string $key): bool;
+
+    /**
+     * Delete all caches by an extended Cache Driver.
+     * 
+     * @return bool
+     */
+    abstract protected function doClear(): bool;
+
+    /**
+     * Check if a cahce exists or not.
+     * 
+     * @param string $key The key of a cache.
+     * 
+     * @return bool
+     */
+    abstract protected function doHas(string $key): bool;
 }

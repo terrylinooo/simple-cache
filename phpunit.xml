@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="tests/bootstrap.php" stderr="true" processIsolation="true" colors="true" beStrictAboutTestsThatDoNotTestAnything="false">
+    <testsuites>
+        <testsuite name="Shieldon SimpleCache Test Suite">
+            <directory>tests/SimpleCache/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+    </filter>
+    <php>
+        <ini name="date.timezone" value="UTC"/>
+        <const name="PHPUNIT_TEST" value="TRUE"/>
+    </php>
+    <logging>
+        <log type="coverage-clover" target="clover.xml"/>
+        <log type="coverage-html" target="tests/report"/>
+    </logging>
+</phpunit>

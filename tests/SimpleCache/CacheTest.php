@@ -12,5 +12,8 @@ namespace Shieldon\Test\SimpleCache;
 
 class CacheTest extends CacheTestCase
 {
+    public function testCacheInitialize()
+    {
 
+    }
 }
