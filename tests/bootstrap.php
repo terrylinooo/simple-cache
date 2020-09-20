@@ -13,19 +13,29 @@ declare(strict_types=1);
 define('BOOTSTRAP_DIR', __DIR__);
 
 /**
- * Create a writable directrory for unit testing.
+ * Get the absolute path the file.
  *
  * @param string $filename File name.
  *
  * @return string The file's path.
  */
-function get_testing_file_path(string $filename, string $dir = ''): string
+function get_tmp_file_path(string $filename, string $dir = ''): string
 {
-    $dir = BOOTSTRAP_DIR . '/../tmp';
+    $dir = create_tmp_directory($dir);
 
-    if ($dir === '') {
-        $dir = BOOTSTRAP_DIR . '/../tmp/' . $dir;
-    }
+    return $dir . '/' . $filename;
+}
+
+/**
+ * Create a writable directrory for unit testing.
+ *
+ * @param string $dir Directory.
+ *
+ * @return string The directory's path.
+ */
+function create_tmp_directory(string $dir = '')
+{
+    $dir = BOOTSTRAP_DIR . '/../tmp/' . $dir;
 
     if (!is_dir($dir)) {
         $originalUmask = umask(0);
@@ -33,5 +43,5 @@ function get_testing_file_path(string $filename, string $dir = ''): string
         umask($originalUmask);
     }
 
-    return $dir . '/' . $filename;
+    return $dir;
 }

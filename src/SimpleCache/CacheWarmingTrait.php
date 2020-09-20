@@ -22,9 +22,9 @@ Trait CacheWarmingTrait
      *
      * [
      *   [
-     *     'value'     => (mixed) $value
-     *     'ttl'       => (int)   $ttl,
      *     'timestamp' => (int)   $timestamp,
+     *     'ttl'       => (int)   $ttl,
+     *     'value'     => (mixed) $value
      *   ],
      *   ...
      * ]
@@ -39,14 +39,4 @@ Trait CacheWarmingTrait
      * @var array
      */
     protected $expiredPool = [];
-
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-    protected function setPool()
-    {
-
-    }
 }

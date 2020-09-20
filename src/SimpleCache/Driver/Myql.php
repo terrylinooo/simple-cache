@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Shieldon\SimpleCache\Driver;
 
-use Psr\SimpleCache\CacheProvider;
+use Shieldon\SimpleCache\CacheProvider;
 
 /**
  * A cache driver class provided by MySQL database.

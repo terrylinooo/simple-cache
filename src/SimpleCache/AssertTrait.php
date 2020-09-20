@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Shieldon\SimpleCache;
 
 use Shieldon\SimpleCache\Exception\CacheArgumentException;
+use Shieldon\SimpleCache\Exception\CacheException;
 use DateInterval;
 use function gettype;
 
@@ -69,6 +70,8 @@ Trait AssertTrait
      * @param int|null|DateInterval $ttl The time to live of a cached data.
      *
      * @return void
+     * 
+     * @throws CacheArgumentException
      */
     protected function assertValidTypeOfTtl($ttl): void
     {
@@ -82,6 +85,30 @@ Trait AssertTrait
                     'The TTL only accetps int, null and DateInterval instance, but "%s" provided.',
                     gettype($ttl)
                 )
+            );
+        }
+    }
+
+    /**
+     * Check if a directory exists and is writable.
+     *
+     * @param string $directory The path of a directory.
+     *
+     * @return void
+     * 
+     * @throws CacheException
+     */
+    protected function assertDirectoryWritable(string $directory): void
+    {
+        if (!is_dir($directory)) {
+            throw new CacheException(
+                'The directory of the storage does not exist.'
+            );
+        }
+
+        if (!is_writable($directory)) {
+            throw new CacheException(
+                'The directory of the storage must be wriable'
             );
         }
     }
