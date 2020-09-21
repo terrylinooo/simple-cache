@@ -16,7 +16,25 @@ jobs:
       name: PHP ${{ matrix.php-versions }}
  
       steps:
-        - uses: actions/checkout@master
+        - uses: actions/checkout@v2
+        
+        - name: Start MySQL service
+          run: sudo service mysql start
+
+        - name: MySQL - Create database.
+          run: sudo mysql -uroot -proot -h 127.0.0.1 -e 'CREATE DATABASE shieldon_unittest;'
+
+        - name: MySQL - Create user.	
+          run: sudo mysql -uroot -proot -h 127.0.0.1 -e "CREATE USER 'shieldon'@'localhost' IDENTIFIED BY 'taiwan';"	
+
+        - name: MySQL - Grant permission.	
+          run: sudo mysql -uroot -proot -h 127.0.0.1 -e "GRANT ALL ON shieldon_unittest.* TO 'shieldon'@'localhost';"
+
+        - name: Install Redis service.
+          run: sudo apt-get install -y redis-server
+
+        - name: Start Redis service.
+          run: sudo service redis-server start
           
         - name: Setup PHP with Xdebug
           uses: shivammathur/setup-php@v2

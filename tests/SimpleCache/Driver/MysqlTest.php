@@ -18,9 +18,9 @@ class MysqlTest extends CacheTestCase
     public function testDriverCombinedTests()
     {
         $cache = new Mysql([
-            'dbname' => 'test',
+            'dbname' => 'shieldon_unittest',
             'user' => 'shieldon',
-            'pass' => 'test',
+            'pass' => 'taiwan',
         ]);
 
         $cache->rebuild();
@@ -70,9 +70,9 @@ class MysqlTest extends CacheTestCase
     public function testDriverClearAll()
     {
         $cache = new Mysql([
-            'dbname' => 'test',
+            'dbname' => 'shieldon_unittest',
             'user' => 'shieldon',
-            'pass' => 'test',
+            'pass' => 'taiwan',
         ]);
 
         $cache->set('foo', 'bar', 300);
@@ -90,9 +90,9 @@ class MysqlTest extends CacheTestCase
     public function testDriverCacheExpired()
     {
         $cache = new Mysql([
-            'dbname' => 'test',
+            'dbname' => 'shieldon_unittest',
             'user' => 'shieldon',
-            'pass' => 'test',
+            'pass' => 'taiwan',
         ]);
 
         $cache->set('foo', 'bar', 5);
