@@ -11,17 +11,19 @@
 namespace Shieldon\Test\SimpleCache;
 
 use Shieldon\Test\SimpleCache\CacheTestCase;
-use Shieldon\SimpleCache\Driver\File;
+use Shieldon\SimpleCache\Driver\Sqlite;
 
-class FileTest extends CacheTestCase
+class SqliteTest extends CacheTestCase
 {
     public function testDriverCombinedTests()
     {
-        $cache = new File([
+        $cache = new Sqlite([
             'storage' => create_tmp_directory()
         ]);
 
-        // Test method `set()` and `get()`
+        $cache->rebuild();
+
+        // Test method `get()` and `get()`
         $cache->set('foo', 'bar', 300);
         $this->assertSame('bar', $cache->get('foo'));
 
@@ -65,7 +67,7 @@ class FileTest extends CacheTestCase
 
     public function testDriverClearAll()
     {
-        $cache = new File([
+        $cache = new Sqlite([
             'storage' => create_tmp_directory()
         ]);
 
@@ -83,7 +85,7 @@ class FileTest extends CacheTestCase
 
     public function testDriverCacheExpired()
     {
-        $cache = new File([
+        $cache = new Sqlite([
             'storage' => create_tmp_directory()
         ]);
 

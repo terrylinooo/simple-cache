@@ -45,13 +45,11 @@ class File extends CacheProvider
      * 
      * @throws CacheException
      */
-    public function __construct(array $setting)
+    public function __construct(array $setting = [])
     {
         if (isset($setting['storage'])) {
             $this->storage = rtrim($setting['storage'], '/');
         }
-
-        echo $this->storage;
 
         $this->assertDirectoryWritable($this->storage);
     }

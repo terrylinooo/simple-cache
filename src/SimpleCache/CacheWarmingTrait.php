@@ -32,11 +32,4 @@ Trait CacheWarmingTrait
      * @var array[]
      */
     protected  $pool = [];
-
-    /**
-     * The cached items will be deleted later.
-     *
-     * @var array
-     */
-    protected $expiredPool = [];
 }

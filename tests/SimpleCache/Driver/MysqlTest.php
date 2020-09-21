@@ -11,17 +11,21 @@
 namespace Shieldon\Test\SimpleCache;
 
 use Shieldon\Test\SimpleCache\CacheTestCase;
-use Shieldon\SimpleCache\Driver\File;
+use Shieldon\SimpleCache\Driver\Mysql;
 
-class FileTest extends CacheTestCase
+class MysqlTest extends CacheTestCase
 {
     public function testDriverCombinedTests()
     {
-        $cache = new File([
-            'storage' => create_tmp_directory()
+        $cache = new Mysql([
+            'dbname' => 'test',
+            'user' => 'shieldon',
+            'pass' => 'test',
         ]);
 
-        // Test method `set()` and `get()`
+        $cache->rebuild();
+
+        // Test method `get()` and `get()`
         $cache->set('foo', 'bar', 300);
         $this->assertSame('bar', $cache->get('foo'));
 
@@ -65,8 +69,10 @@ class FileTest extends CacheTestCase
 
     public function testDriverClearAll()
     {
-        $cache = new File([
-            'storage' => create_tmp_directory()
+        $cache = new Mysql([
+            'dbname' => 'test',
+            'user' => 'shieldon',
+            'pass' => 'test',
         ]);
 
         $cache->set('foo', 'bar', 300);
@@ -83,8 +89,10 @@ class FileTest extends CacheTestCase
 
     public function testDriverCacheExpired()
     {
-        $cache = new File([
-            'storage' => create_tmp_directory()
+        $cache = new Mysql([
+            'dbname' => 'test',
+            'user' => 'shieldon',
+            'pass' => 'test',
         ]);
 
         $cache->set('foo', 'bar', 5);

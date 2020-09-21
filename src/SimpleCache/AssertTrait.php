@@ -112,4 +112,27 @@ Trait AssertTrait
             );
         }
     }
+
+    /**
+     * Check if a setting field is empty or not.
+     *
+     * @param array $settings The array of the settings.
+     *
+     * @return void
+     * 
+     * @throws CacheArgumentException
+     */
+    protected function assertSettingFields($settings): void
+    {
+        foreach ($settings as $k => $v) {
+            if (empty($v)) {
+                throw new CacheArgumentException(
+                    sprintf(
+                        'The setting field "%s" cannot be empty or null',
+                        $k
+                    )
+                );
+            }
+        }
+    }
 }
