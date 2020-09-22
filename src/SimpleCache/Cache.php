@@ -58,7 +58,7 @@ class Cache
     }
 
     /**
-     * @inheritDoc
+     * @inheritDoc CacheInterface
      */
     public function get($key, $default = null)
     {

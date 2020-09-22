@@ -109,7 +109,7 @@ class Redis extends CacheProvider
         }
         $data = unserialize($content);
 
-		return $data;
+        return $data;
     }
 
     /**
@@ -125,9 +125,9 @@ class Redis extends CacheProvider
     protected function doSet(string $key, $value, int $ttl, int $timestamp): bool
     {
         $contents = [
-			'timestamp' => $timestamp,
-			'ttl'       => $ttl,
-			'value'     => $value
+            'timestamp' => $timestamp,
+            'ttl'       => $ttl,
+            'value'     => $value
         ];
 
         $result = $this->redis->set(

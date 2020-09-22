@@ -66,12 +66,12 @@ class File extends CacheProvider
         $filePath = $this->getFilePath($key);
 
         if (!is_file($filePath)) {
-			return [];
+            return [];
         }
 
-		$data = unserialize(file_get_contents($filePath));
+        $data = unserialize(file_get_contents($filePath));
 
-		return $data;
+        return $data;
     }
 
     /**
@@ -87,9 +87,9 @@ class File extends CacheProvider
     protected function doSet(string $key, $value, int $ttl, int $timestamp): bool
     {
         $contents = [
-			'timestamp' => $timestamp,
-			'ttl'       => $ttl,
-			'value'     => $value
+            'timestamp' => $timestamp,
+            'ttl'       => $ttl,
+            'value'     => $value
         ];
 
         $filePath = $this->getFilePath($key);
@@ -99,7 +99,7 @@ class File extends CacheProvider
             return true;
         }
 
-		return false;
+        return false;
     }
 
     /**

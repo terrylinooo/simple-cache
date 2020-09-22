@@ -65,7 +65,7 @@ Trait SqlTrait
 
         $data = unserialize($resultData['cache_value']);
 
-		return $data;
+        return $data;
     }
 
     /**
