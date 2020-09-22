@@ -23,7 +23,7 @@ class Cache
     /**
      * The cache driver.
      *
-     * @var string
+     * @var null|CacheInterface
      */
     protected $driver;
 
