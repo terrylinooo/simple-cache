@@ -12,6 +12,7 @@ namespace Shieldon\Test\SimpleCache;
 
 use Psr\SimpleCache\CacheInterface;
 use Shieldon\Test\SimpleCache\CacheTestCase;
+use function method_exists;
 
 /**
  * The integration tests for all methods provided from CacheInterface.
@@ -36,6 +37,12 @@ abstract class DriverTestCase extends CacheTestCase
     public function testDriverCombinedTests()
     {
         $cache = $this->getCacheDriver();
+
+        if (method_exists($cache, 'rebuild')) {
+            $cache->rebuild();
+        }
+
+        
 
         // Test method `set()` and `get()`
         $cache->set('foo', 'bar', 300);
