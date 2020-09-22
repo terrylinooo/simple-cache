@@ -57,3 +57,8 @@ jobs:
 
         - name: Run tests.
           run: composer test
+
+        - name: Upload coverage to Codecov
+          uses: codecov/codecov-action@v1
+          with:
+            file: ./coverage.xml

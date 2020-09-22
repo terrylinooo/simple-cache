@@ -16,7 +16,7 @@
         <const name="PHPUNIT_TEST" value="TRUE"/>
     </php>
     <logging>
-        <log type="coverage-clover" target="clover.xml"/>
+        <log type="coverage-clover" target="coverage.xml"/>
         <log type="coverage-html" target="tests/report"/>
     </logging>
 </phpunit>
