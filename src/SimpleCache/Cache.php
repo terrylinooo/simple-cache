@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Shieldon\SimpleCache;
 
 use Psr\SimpleCache\CacheInterface;
-use Shieldon\SimpleCache\Driver as Driver;
+use Shieldon\SimpleCache\Exception\CacheArgumentException;
 
 /**
  * The base Cache Adapter class.
@@ -23,25 +23,37 @@ class Cache
     /**
      * The cache driver.
      *
-     * @var CacheInterface
+     * @var string
      */
     protected $driver;
 
     /**
      * Constructor.
      *
-     * @param CacheInterface|string $driver The cache driver.
+     * @param string|CacheInterface $driver   The cache driver.
+     * @param array                 $settings The settings.
      * 
      * @throws CacheException
      */
-    public function __construct($driver = '')
+    public function __construct($driver = '', array $settings = [])
     {
         if ($driver instanceof CacheInterface) {
             $this->driver = $driver;
+
         } elseif (is_string($driver)) {
-            $driver = 'Driver' . ucfirst(strtolower($driver));
-            
-            // To do.
+            $class = ucfirst(strtolower($driver));
+
+            if (file_exists(__DIR__ . '/Driver/' . $class . '.php')) {
+                $class = '\Shieldon\SimpleCache\Driver\\' . $class;
+
+                $this->driver = new $class($settings);
+            }
+        }
+
+        if (!$this->driver) {
+            throw new CacheArgumentException(
+                'The data driver is not set correctly.'
+            );
         }
     }
 
@@ -54,7 +66,7 @@ class Cache
     }
 
     /**
-     * @inheritDoc
+     * @inheritDoc CacheInterface
      */
     public function set($key, $value, $ttl = null)
     {
@@ -62,7 +74,7 @@ class Cache
     }
 
     /**
-     * @inheritDoc
+     * @inheritDoc CacheInterface
      */
     public function delete($key)
     {
@@ -70,7 +82,7 @@ class Cache
     }
 
     /**
-     * @inheritDoc
+     * @inheritDoc CacheInterface
      */
     public function clear()
     {
@@ -78,7 +90,7 @@ class Cache
     }
 
     /**
-     * @inheritDoc
+     * @inheritDoc CacheInterface
      */
     public function has($key)
     {
@@ -86,7 +98,7 @@ class Cache
     }
 
     /**
-     * @inheritDoc
+     * @inheritDoc CacheInterface
      */
     public function getMultiple($keys, $default = null)
     {
@@ -94,7 +106,7 @@ class Cache
     }
 
     /**
-     * @inheritDoc
+     * @inheritDoc CacheInterface
      */
     public function setMultiple($values, $ttl = null)
     {
@@ -102,7 +114,7 @@ class Cache
     }
 
     /**
-     * @inheritDoc
+     * @inheritDoc CacheInterface
      */
     public function deleteMultiple($keys)
     {

@@ -10,10 +10,22 @@
 
 namespace Shieldon\Test\SimpleCache;
 
+use Psr\SimpleCache\CacheInterface;
+use Shieldon\SimpleCache\Cache;
+
 class CacheTest extends CacheTestCase
 {
     public function testCacheInitialize()
     {
+        $driver = new Cache('file', [
+            'storage' => create_tmp_directory()
+        ]);
 
+        $reflection = new \ReflectionObject($driver);
+        $t = $reflection->getProperty('driver');
+        $t->setAccessible(true);
+        $propertyDriver = $t->getValue($driver);
+
+        $this->assertTrue($propertyDriver instanceof CacheInterface);
     }
 }

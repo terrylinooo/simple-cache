@@ -10,83 +10,22 @@
 
 namespace Shieldon\Test\SimpleCache;
 
-use Shieldon\Test\SimpleCache\CacheTestCase;
+use Psr\SimpleCache\CacheInterface;
+use Shieldon\Test\SimpleCache\DriverTestCase;
 use Shieldon\SimpleCache\Driver\Redis;
 
-class RedisTest extends CacheTestCase
+class RedisTest extends DriverTestCase
 {
-    public function testDriverCombinedTests()
+    public function getCacheDriver()
     {
         $cache = new Redis();
 
-        // Test method `get()` and `get()`
-        $cache->set('foo', 'bar', 300);
-        $this->assertSame('bar', $cache->get('foo'));
-
-        // Test method `has()`
-        $this->assertTrue($cache->has('foo'));
-        $this->assertFalse($cache->has('foo2'));
-
-        // Test method `delete()`
-        $cache->delete('foo');
-        $this->assertFalse($cache->has('foo'));
-
-        // test method `setMultiple`
-        $cache->setMultiple([
-            'foo3' => 'bar3',
-            'foo4' => 'bar4',
-        ], 300);
-
-        $this->assertSame('bar3', $cache->get('foo3'));
-        $this->assertSame('bar4', $cache->get('foo4'));
-
-        // test method `getMultiple`
-        $result = $cache->getMultiple(['foo3', 'foo4', 'foo5'], 'hello');
-
-        $this->assertEquals([
-            'foo3' => 'bar3',
-            'foo4' => 'bar4',
-            'foo5' => 'hello',
-        ], $result);
-
-        // test method `deleteMultiple`
-        $cache->deleteMultiple(['foo3']);
-
-        $result = $cache->getMultiple(['foo3', 'foo4', 'foo5'], 'hello');
-
-        $this->assertEquals([
-            'foo3' => 'hello',
-            'foo4' => 'bar4',
-            'foo5' => 'hello',
-        ], $result);
+        return $cache;
     }
 
-    public function testDriverClearAll()
+    public function testCacheDriver()
     {
-        $cache = new Redis();
-
-        $cache->set('foo', 'bar', 300);
-        $cache->set('foo2', 'bar2', 300);
-        $this->assertSame('bar', $cache->get('foo'));
-        $this->assertSame('bar2', $cache->get('foo2'));
-
-        // Clear all caches.
-        $cache->clear();
-
-        $this->assertSame(null, $cache->get('foo'));
-        $this->assertSame(null, $cache->get('foo2'));
-    }
-
-    public function testDriverCacheExpired()
-    {
-        $cache = new Redis();
-
-        $cache->set('foo', 'bar', 5);
-        $this->assertSame('bar', $cache->get('foo'));
-        $this->assertTrue($cache->has('foo'));
-
-        sleep(6);
-        $this->assertSame(null, $cache->get('foo'));
-        $this->assertFalse($cache->has('foo'));
+        $driver = $this->getCacheDriver();
+        $this->assertTrue($driver instanceof CacheInterface);
     }
 }
