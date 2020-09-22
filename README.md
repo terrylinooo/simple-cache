@@ -1,6 +1,6 @@
 # PSR-16 Simple Cache
 
-![build](https://github.com/terrylinooo/simple-cache/workflows/build/badge.svg?branch=master)
+![build](https://github.com/terrylinooo/simple-cache/workflows/build/badge.svg?branch=master) [![codecov](https://codecov.io/gh/terrylinooo/simple-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/terrylinooo/simple-cache)
 
 PSR-16 simple cache drivers for PHP.
 
