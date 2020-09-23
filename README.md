@@ -16,7 +16,19 @@ composer require shieldon/simple-cache
 
 Class `Cache` is a cache adapter that not only allows the implemented instance of `Psr\SimpleCache\CacheInterface` but also has built-in drivers already.
 
-Built-in drivers: `file`, `redis`, `mysql`, `sqlite`.
+#### Built-in drivers:
+
+| Driver | ID | Description |
+| --- | --- | --- |
+| File | `file` | . |
+| Redis | `redis` | . |
+| MySQL | `mysql` | . |
+| SQLite | `sqlite` | . |
+| File | `file` | . |
+| APC | `apc` | . |
+| APCu | `apcu` | . |
+| Memcache | `memcache` | . |
+| LibMemcached | `memcached` | . |
 
 ####  __construct(`$driver = ''`, `$config = []`)
 
