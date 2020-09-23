@@ -16,8 +16,13 @@ build:
       version: 7.3.0
       pecl_extensions:
         - redis
+        - memcached
+        - memcache
+        - apc
+        - apcu
     mysql: true
     redis: true
+    memcached: true
   nodes:
     analysis:
       tests:

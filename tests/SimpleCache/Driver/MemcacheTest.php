@@ -12,20 +12,15 @@ namespace Shieldon\Test\SimpleCache;
 
 use Psr\SimpleCache\CacheInterface;
 use Shieldon\Test\SimpleCache\DriverTestCase;
-use Shieldon\SimpleCache\Driver\Apc;
+use Shieldon\SimpleCache\Driver\Memcache;
 
-class ApcTest extends DriverTestCase
+class MemcacheTest extends DriverTestCase
 {
     public function getCacheDriver()
     {
-        $cache = new Apc();
+        $cache = new Memcache();
 
         return $cache;
-    }
-
-    public function testSupport()
-    {
-        $this->assertTrue(apc_enabled());
     }
 
     public function testCacheDriver()
