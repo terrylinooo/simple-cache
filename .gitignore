@@ -11,3 +11,9 @@ tests/report
 tmp
 clover.xml
 .phpunit.result.cache
+.coverage.xml
+src/SimpleCache/Driver/Apc.php
+src/SimpleCache/Driver/Apcu.php
+src/SimpleCache/Driver/Memcache.php
+src/SimpleCache/Driver/Memcached.php
+tests/SimpleCache/Driver/ApcuTest.php

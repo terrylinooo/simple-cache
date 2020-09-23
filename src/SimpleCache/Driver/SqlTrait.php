@@ -82,13 +82,13 @@ Trait SqlTrait
     {
         $cacheData = $this->get($key);
 
+        $sql = 'INSERT INTO ' . $this->table . ' (cache_key, cache_value) 
+            VALUES (:cache_key, :cache_value)';
+
         if (!empty($cacheData)) {
             $sql = 'UPDATE ' . $this->table . ' 
                 SET cache_value = :cache_value 
                 WHERE cache_key = :cache_key';
-        } else {
-            $sql = 'INSERT INTO ' . $this->table . ' (cache_key, cache_value) 
-                VALUES (:cache_key, :cache_value)';
         }
 
         $query = $this->db->prepare($sql);

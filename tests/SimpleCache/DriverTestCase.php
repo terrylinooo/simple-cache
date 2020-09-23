@@ -42,8 +42,6 @@ abstract class DriverTestCase extends CacheTestCase
             $cache->rebuild();
         }
 
-        
-
         // Test method `set()` and `get()`
         $cache->set('foo', 'bar', 300);
         $this->assertSame('bar', $cache->get('foo'));
