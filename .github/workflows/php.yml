@@ -43,6 +43,12 @@ jobs:
             extensions: mbstring, pdo, pdo_mysql, intl, zip, redis, ctype, json, apc, apcu, memcache, memcached
             ini-values: apc.enable_cli=On
             coverage: xdebug
+
+        - name: Install Memcached service.
+          run: sudo apt-get install -y memcached
+
+        - name: Start Redis service.
+          run: sudo service memcached start
        
         - name: Create a folder for testing.
           run: sudo mkdir /home/runner/work/simple-cache/simple-cache/tmp
