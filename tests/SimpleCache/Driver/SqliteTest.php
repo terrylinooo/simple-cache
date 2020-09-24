@@ -11,10 +11,10 @@
 namespace Shieldon\Test\SimpleCache;
 
 use Psr\SimpleCache\CacheInterface;
-use Shieldon\Test\SimpleCache\DriverTestCase;
+use Shieldon\Test\SimpleCache\DriverIntegrationTestCase;
 use Shieldon\SimpleCache\Driver\Sqlite;
 
-class SqliteTest extends DriverTestCase
+class SqliteTest extends DriverIntegrationTestCase
 {
     public function getCacheDriver()
     {

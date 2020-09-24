@@ -12,9 +12,9 @@ namespace Shieldon\Test\SimpleCache;
 
 use Psr\SimpleCache\CacheInterface;
 use Shieldon\SimpleCache\Driver\File;
-use Shieldon\Test\SimpleCache\DriverTestCase;
+use Shieldon\Test\SimpleCache\DriverIntegrationTestCase;
 
-class FileTest extends DriverTestCase
+class FileTest extends DriverIntegrationTestCase
 {
     public function getCacheDriver()
     {

@@ -47,7 +47,7 @@ jobs:
         - name: Install Memcached service.
           run: sudo apt-get install -y memcached
 
-        - name: Start Redis service.
+        - name: Start Memcached service.
           run: sudo service memcached start
        
         - name: Create a folder for testing.

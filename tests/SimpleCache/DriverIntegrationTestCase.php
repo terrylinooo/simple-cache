@@ -16,9 +16,8 @@ use function method_exists;
 
 /**
  * The integration tests for all methods provided from CacheInterface.
- * 
  */
-abstract class DriverTestCase extends CacheTestCase
+abstract class DriverIntegrationTestCase extends CacheTestCase
 {
     /**
      * Get the cache driver for integration

@@ -11,10 +11,10 @@
 namespace Shieldon\Test\SimpleCache;
 
 use Psr\SimpleCache\CacheInterface;
-use Shieldon\Test\SimpleCache\DriverTestCase;
+use Shieldon\Test\SimpleCache\DriverIntegrationTestCase;
 use Shieldon\SimpleCache\Driver\Redis;
 
-class RedisTest extends DriverTestCase
+class RedisTest extends DriverIntegrationTestCase
 {
     public function getCacheDriver()
     {
