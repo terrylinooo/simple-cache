@@ -21,6 +21,7 @@ PSR-16 simple cache drivers for PHP.
     - getMultiple
     - setMultiple
     - deleteMultiple
+    - clear
 - Build Data Schema
     - MySQL
     - SQLite
@@ -55,7 +56,9 @@ The required parameter are marked by an asterisk (*)
 | APCu | `apcu` | apcu | - |
 | Memcache | `memcache` | memcache | `host`, `port` |
 | LibMemcached | `memcached` | memcached | `host`, `port` |
+| WinCache | `wincache` | wincache | - |
 
+Note: **WinCache** is excluded from unit testing since it's only used on Windows, and the testing processes are done on Linux environment.
 
 This command will show a list of the installed PHP modules.
 ```bash
@@ -374,6 +377,10 @@ CREATE TABLE IF NOT EXISTS cache_data (
 ## Author
 
 - [Terry L.](https://terryl.in/) from Tainan, Taiwan.
+
+#### The Story of The Library
+
+This PHP library was born for the [12th Iornman Game](https://ithelp.ithome.com.tw/2020-12th-ironman) contest held by [ITHelp](https://ithelp.ithome.com.tw/), a IT community in Taiwan. I named my topic as "*Road to PHP Master - The Best Practice in Open Souce Code.*", written in traditional Chinese. [Read here](https://ithelp.ithome.com.tw/users/20111119/ironman/3269), if you're interested.
 
 ## License
 
