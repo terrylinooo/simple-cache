@@ -43,9 +43,11 @@ class Apcu extends CacheProvider
     public function __construct(array $setting = [])
     {
         if (!function_exists('apcu_fetch')) {
+            // @codeCoverageIgnoreStart
             throw new CacheException(
                 'APCu extension is not enable.'
             );
+            // @codeCoverageIgnoreEnd
         }
 
         unset($setting);

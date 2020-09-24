@@ -77,16 +77,19 @@ class Memcache extends CacheProvider
                     true,
 					1
 				);
-
+            // @codeCoverageIgnoreStart
             } catch (Exception $e) {
                 throw new CacheException($e->getMessage());
             }
+            // @codeCoverageIgnoreEnd
             return;
         }
 
+        // @codeCoverageIgnoreStart
         throw new CacheException(
             'PHP Memcache extension is not installed on your system.'
         );
+        // @codeCoverageIgnoreEnd
     }
 
     /**

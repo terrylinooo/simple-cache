@@ -380,7 +380,7 @@ CREATE TABLE IF NOT EXISTS cache_data (
 
 #### The Story of The Library
 
-This PHP library was born for the [12th Iornman Game](https://ithelp.ithome.com.tw/2020-12th-ironman) contest held by [ITHelp](https://ithelp.ithome.com.tw/), an IT community in Taiwan. I named my topic as "*Road to PHP Master - The Best Practice in Open Souce Code.*", written in traditional Chinese. [Read here](https://ithelp.ithome.com.tw/users/20111119/ironman/3269), if you're interested.
+This PHP library was born for the [12th Iornman Game](https://ithelp.ithome.com.tw/2020-12th-ironman) contest hosted by [ITHelp](https://ithelp.ithome.com.tw/), an IT community in Taiwan. I named my topic as "*Road to PHP Master - The Best Practice in Open Souce Code.*", written in traditional Chinese. [Read here](https://ithelp.ithome.com.tw/users/20111119/ironman/3269), if you're interested.
 
 ## License
 

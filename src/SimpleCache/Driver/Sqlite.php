@@ -80,12 +80,10 @@ class Sqlite extends CacheProvider
             $this->db->query($sql);
 
         // @codeCoverageIgnoreStart
-
         } catch (Exception $e) {
             file_put_contents('php://stderr', $e->getMessage());
             return false;
         }
-
         // @codeCoverageIgnoreEnd
 
         return true;

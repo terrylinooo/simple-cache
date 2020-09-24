@@ -99,7 +99,9 @@ class File extends CacheProvider
             return true;
         }
 
+        // @codeCoverageIgnoreStart
         return false;
+        // @codeCoverageIgnoreEnd
     }
 
     /**

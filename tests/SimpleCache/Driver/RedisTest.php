@@ -28,4 +28,14 @@ class RedisTest extends DriverIntegrationTestCase
         $driver = $this->getCacheDriver();
         $this->assertTrue($driver instanceof CacheInterface);
     }
+
+    public function testInvalidUsernameAndPassword()
+    {
+        $cache = new Redis([
+            'user' => 'hello',
+            'pass' => 'world',
+        ]);
+
+        // Nothing happended??
+    }
 }

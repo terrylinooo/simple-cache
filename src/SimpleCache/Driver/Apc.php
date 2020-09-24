@@ -43,9 +43,11 @@ class Apc extends CacheProvider
     public function __construct(array $setting = [])
     {
         if (!function_exists('apc_fetch')) {
+            // @codeCoverageIgnoreStart
             throw new CacheException(
                 'APC extension is not enable.'
             );
+            // @codeCoverageIgnoreEnd
         }
 
         unset($setting);

@@ -76,16 +76,19 @@ class Memcached extends CacheProvider
 					$config['port'],
 					1
 				);
-
+            // @codeCoverageIgnoreStart
             } catch (Exception $e) {
                 throw new CacheException($e->getMessage());
             }
+            // @codeCoverageIgnoreEnd
             return;
         }
 
+        // @codeCoverageIgnoreStart
         throw new CacheException(
             'PHP Memcached extension is not installed on your system.'
         );
+        // @codeCoverageIgnoreEnd
     }
 
     /**

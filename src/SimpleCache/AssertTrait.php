@@ -106,11 +106,15 @@ Trait AssertTrait
             );
         }
 
+        // @codeCoverageIgnoreStart
+
         if (!is_writable($directory)) {
             throw new CacheException(
                 'The directory of the storage must be wriable'
             );
         }
+
+        // @codeCoverageIgnoreEnd
     }
 
     /**

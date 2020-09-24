@@ -45,6 +45,9 @@ abstract class DriverIntegrationTestCase extends CacheTestCase
         $cache->set('foo', 'bar', 300);
         $this->assertSame('bar', $cache->get('foo'));
 
+        $cache->set('foo', 'bar bar', 300);
+        $this->assertSame('bar bar', $cache->get('foo'));
+
         // Test method `has()`
         $this->assertTrue($cache->has('foo'));
         $this->assertFalse($cache->has('foo2'));

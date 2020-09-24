@@ -74,23 +74,56 @@ class Redis extends CacheProvider
             try {
                 $this->redis = new RedisServer();
                 $this->redis->connect($config['host'], $config['port']);
-        
-                if (!empty($config['user']) && !empty($config['pass'])) {
-                    $this->auth([
-                        'user' => $config['user'],
-                        'pass' => $config['pass'],
-                    ]);
-                }
+                $this->auth($config);
 
+            // @codeCoverageIgnoreStart
             } catch (Exception $e) {
                 throw new CacheException($e->getMessage());
+            }
+            // @codeCoverageIgnoreEnd
+            return;
+        }
+
+        // @codeCoverageIgnoreStart
+        throw new CacheException(
+            'PHP Redis extension is not installed on your system.'
+        );
+        // @codeCoverageIgnoreEnd
+    }
+
+    /**
+     * Redis authentication.
+     * @codeCoverageIgnore
+     *
+     * @param array $config The user / pass data.
+     * 
+     * @return void
+     */
+    protected function auth(array $config = []): void
+    {
+        if ($this->getVersion() >= 6) {
+            if (!empty($config['user']) && !empty($config['pass'])) {
+                $this->redis->auth([
+                    $config['user'],
+                    $config['pass'],
+                ]);
             }
             return;
         }
 
-        throw new CacheException(
-            'PHP Redis extension is not installed on your system.'
-        );
+        if (!empty($config['pass'])) {
+            $this->redis->auth($config['pass']);
+        }
+    }
+
+    /**
+     * Get Redis version number.
+     */
+    protected function getVersion(): int
+    {
+        $info = $this->redis->info();
+
+        return (int) $info['redis_version'];
     }
 
     /**

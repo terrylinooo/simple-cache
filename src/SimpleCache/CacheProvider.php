@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Shieldon\SimpleCache;
 
 use Psr\SimpleCache\CacheInterface;
+use Shieldon\SimpleCache\AssertTrait;
 use DateInterval;
 use Datetime;
 
@@ -28,6 +29,8 @@ abstract class CacheProvider implements CacheInterface
      */
     public function get($key, $default = null)
     {
+        $this->assertArgumentString($key);
+
         $data = $this->doGet($key);
 
         if (!empty($data)) {
@@ -112,7 +115,9 @@ abstract class CacheProvider implements CacheInterface
 
         foreach ($values as $key => $value) {
             if (!$this->set($key, $value, $ttl)) {
+                // @codeCoverageIgnoreStart
                 return false;
+                // @codeCoverageIgnoreEnd
             }
         }
 
@@ -128,7 +133,9 @@ abstract class CacheProvider implements CacheInterface
 
         foreach ($keys as $key) {
             if (!$this->doDelete($key)) {
+                // @codeCoverageIgnoreStart
                 return false;
+                // @codeCoverageIgnoreEnd
             }
         }
 

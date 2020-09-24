@@ -73,7 +73,15 @@ class Mysql extends CacheProvider
         $user = $config['user'];
         $pass = $config['pass'];
 
-        $this->db = new PDO($host, $user, $pass);
+        try {
+
+            $this->db = new PDO($host, $user, $pass);
+
+        // @codeCoverageIgnoreStart
+        } catch (PDOException $e) {
+            throw new CacheException($e->getMessage());
+        }
+        // @codeCoverageIgnoreEnd
     }
 
     /**
