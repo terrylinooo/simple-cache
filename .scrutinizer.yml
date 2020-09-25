@@ -35,7 +35,6 @@ build:
       - mysql -u root -e "CREATE USER 'shieldon'@'localhost' IDENTIFIED BY 'taiwan';"
       - mysql -u root -e "GRANT ALL ON shieldon_unittest.* TO 'shieldon'@'localhost';"
       - sudo apt-get install -y php-apc 
-      - sudo apt-get install -y php-apcu
   tests:
     before:
       -
