@@ -38,7 +38,7 @@ build:
       - mysql -u root -e 'CREATE DATABASE shieldon_unittest;'
       - mysql -u root -e "CREATE USER 'shieldon'@'localhost' IDENTIFIED BY 'taiwan';"
       - mysql -u root -e "GRANT ALL ON shieldon_unittest.* TO 'shieldon'@'localhost';"
-      - sudo apt-get install -y php71-xdebug
+      - sudo apt-get install -y php7.1-xdebug
   tests:
     before:
       -
