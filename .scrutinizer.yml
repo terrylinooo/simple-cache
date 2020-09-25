@@ -18,7 +18,6 @@ build:
         - redis
         - memcache
         - memcached
-        - APCu
         - xdebug
       ini:
         'apc.enable_cli': 'On'
