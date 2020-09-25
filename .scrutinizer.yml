@@ -13,12 +13,13 @@ tools:
 build:
   environment:
     php:
-      version: 7.1.32
+      version: 7.2.5
       pecl_extensions:
         - redis
         - memcache
         - memcached
         - APCu
+        - apcu_bc
         - xdebug
       ini:
         'apc.enable_cli': 'On'
