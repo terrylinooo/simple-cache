@@ -20,6 +20,7 @@ build:
         - memcached
         - APCu
         - apcu_bc
+        - xdebug
       ini:
         'apc.enable_cli': 'On'
     mysql: true
