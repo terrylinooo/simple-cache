@@ -45,7 +45,7 @@ class Memcached extends CacheProvider
     {
         $config = [
             'host' => '127.0.0.1',
-			'port' => 11211,
+            'port' => 11211,
         ];
 
         foreach (array_keys($config) as $key) {
@@ -72,10 +72,10 @@ class Memcached extends CacheProvider
             try {
                 $this->memcached = new MemcachedServer();
                 $this->memcached->addServer(
-					$config['host'],
-					$config['port'],
-					1
-				);
+                    $config['host'],
+                    $config['port'],
+                    1
+                );
             // @codeCoverageIgnoreStart
             } catch (Exception $e) {
                 throw new CacheException($e->getMessage());
