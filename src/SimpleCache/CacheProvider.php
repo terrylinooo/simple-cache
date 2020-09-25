@@ -16,6 +16,9 @@ use Psr\SimpleCache\CacheInterface;
 use Shieldon\SimpleCache\AssertTrait;
 use DateInterval;
 use Datetime;
+use function is_integer;
+use function is_null;
+use function time;
 
 /**
  * The abstract class for cache service providers.

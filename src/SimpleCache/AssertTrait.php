@@ -16,6 +16,12 @@ use Shieldon\SimpleCache\Exception\CacheArgumentException;
 use Shieldon\SimpleCache\Exception\CacheException;
 use DateInterval;
 use function gettype;
+use function is_dir;
+use function is_iterable;
+use function is_null;
+use function is_string;
+use function is_writable;
+use function sprintf;
 
 /**
  * This assert trait provides methods to check conditions.
