@@ -18,6 +18,8 @@ build:
         - redis
         - memcache
         - memcached
+        - apcu
+        - apcu_bc
     mysql: true
     redis: true
     memcached: true
@@ -34,8 +36,6 @@ build:
       - mysql -u root -e 'CREATE DATABASE shieldon_unittest;'
       - mysql -u root -e "CREATE USER 'shieldon'@'localhost' IDENTIFIED BY 'taiwan';"
       - mysql -u root -e "GRANT ALL ON shieldon_unittest.* TO 'shieldon'@'localhost';"
-      - sudo apt-get install -y php7.1-apc 
-      - sudo apt-get install -y php7.1-apcu
   tests:
     before:
       -
