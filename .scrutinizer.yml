@@ -18,8 +18,10 @@ build:
         - redis
         - memcache
         - memcached
-        - apcu
+        - APCu
         - apcu_bc
+      ini:
+        'apc.enable_cli': 'On'
     mysql: true
     redis: true
     memcached: true
