@@ -5,10 +5,9 @@ language: php
 
 branches:
   only:
-    - 1.x
-    - 2.x
-  except:
     - master
+  except:
+    - development
 
 php:
   - 7.1
