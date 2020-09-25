@@ -18,6 +18,7 @@ php:
 services:
   - mysql
   - redis
+  - memcached
 
 addons:
   mariadb: '10.0'
