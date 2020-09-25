@@ -1,6 +1,6 @@
 # PSR-16 Simple Cache
 
-![build](https://github.com/terrylinooo/simple-cache/workflows/build/badge.svg?branch=master) [![codecov](https://codecov.io/gh/terrylinooo/simple-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/terrylinooo/simple-cache) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/?branch=master)
+![build](https://github.com/terrylinooo/simple-cache/workflows/build/badge.svg?branch=master) [![codecov](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/coverage.png?b=master)](https://codecov.io/gh/terrylinooo/simple-cache) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/?branch=master)
 
 PSR-16 simple cache drivers for PHP.
 
@@ -378,7 +378,7 @@ CREATE TABLE IF NOT EXISTS cache_data (
 
 - [Terry L.](https://terryl.in/) from Tainan, Taiwan.
 
-#### The Story of  Library
+#### The story about this library
 
 This PHP library was born for the [12th Iornman Game](https://ithelp.ithome.com.tw/2020-12th-ironman) contest hosted by [ITHelp](https://ithelp.ithome.com.tw/), an IT community in Taiwan. I named my topic as "*Road to PHP Master - The Best Practice in Open Souce Code.*", written in traditional Chinese. [Read here](https://ithelp.ithome.com.tw/users/20111119/ironman/3269), if you're interested.
 
