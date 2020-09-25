@@ -29,7 +29,7 @@ before_script:
   - mysql -u root -e 'CREATE DATABASE shieldon_unittest;'
   - mysql -u root -e "CREATE USER 'shieldon'@'localhost' IDENTIFIED BY 'taiwan';"
   - mysql -u root -e "GRANT ALL ON shieldon_unittest.* TO 'shieldon'@'localhost';"
-  - add-apt-repository ppa:ondrej/php
+  - sudo add-apt-repository --yes ppa:ondrej/php
   - sudo apt-get update
   - sudo apt-get install -y php$(phpenv version-name)-apcu
   - sudo apt-get install -y php$(phpenv version-name)-apcu-bc
