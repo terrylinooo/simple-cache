@@ -29,11 +29,11 @@ before_script:
   - mysql -u root -e 'CREATE DATABASE shieldon_unittest;'
   - mysql -u root -e "CREATE USER 'shieldon'@'localhost' IDENTIFIED BY 'taiwan';"
   - mysql -u root -e "GRANT ALL ON shieldon_unittest.* TO 'shieldon'@'localhost';"
-  - apt-get install -y php$(phpenv version-name)-apc
-  - apt-get install -y php$(phpenv version-name)-apcu
-  - apt-get install -y php$(phpenv version-name)-memcache
-  - apt-get install -y php$(phpenv version-name)-memcached
-  - apt-get install -y php$(phpenv version-name)-redis
+  - sedo apt-get install -y php$(phpenv version-name)-apc
+  - sedo apt-get install -y php$(phpenv version-name)-apcu
+  - sedo apt-get install -y php$(phpenv version-name)-memcache
+  - sedo apt-get install -y php$(phpenv version-name)-memcached
+  - sedo apt-get install -y php$(phpenv version-name)-redis
 
 script: composer test
 
