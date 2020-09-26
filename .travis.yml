@@ -33,7 +33,7 @@ before_script:
   - printf "\n" | pecl install -f apcu
   - printf "\n" | pecl install -f apcu_bc
   - printf "\n" | pecl install -f memcache
-  - printf "no --disable-memcached-sasl" | pecl install -f memcached
+  - printf "no --disable-memcached-sasl\n" | pecl install -f memcached
   - printf "\n" | pecl install -f redis
 
 script: composer test
