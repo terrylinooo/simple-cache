@@ -33,6 +33,7 @@ before_script:
   - printf "\n" | pecl install -f apcu
   - printf "\n" | pecl install -f apcu_bc
   - printf "\n" | pecl install -f memcache
+  - sudo apt-get install -y libsasl2-dev
   - printf "\n" | pecl install -f memcached
   - printf "\n" | pecl install -f redis
 
