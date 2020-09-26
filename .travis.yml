@@ -33,9 +33,9 @@ before_script:
   - pecl channel-update pecl.php.net
   - printf "\n" | pecl install -f apcu
   - printf "\n" | pecl install -f apcu_bc
-  - pecl install -f memcache
+  - printf "\n" pecl install -f memcache
   - sudo apt-get -y install php-memcached
-  - pecl install -f redis
+  - printf "\n" pecl install -f redis
 
 script: composer test
 
