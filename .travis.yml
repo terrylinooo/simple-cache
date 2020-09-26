@@ -33,7 +33,7 @@ before_script:
   - pecl channel-update pecl.php.net
   - echo yes | pecl install -f apcu
   - echo yes | pecl install -f apcu_bc
-  - pecl install -f memcache
+  - echo yes | pecl install -f memcache
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   # Print php.ini for debugging purpose.
