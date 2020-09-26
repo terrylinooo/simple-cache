@@ -31,8 +31,7 @@ before_script:
   - mysql -u root -e "GRANT ALL ON shieldon_unittest.* TO 'shieldon'@'localhost';"
   - sudo apt-get install libmemcached-dev
   - pecl channel-update pecl.php.net
-  - printf "\n" | pecl install -f apc
-  - printf "\n" | pecl install -f apcu
+  - printf "\n" | pecl install -f APCu
   - printf "\n" | pecl install -f apcu_bc
   - printf "\n" pecl install -f memcache
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
