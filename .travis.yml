@@ -40,8 +40,8 @@ before_script:
   - echo "\n------------------\n"
   - cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "\n------------------\n"
-  - sudo sed '/apc.so/d' ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - sudo sed '/apcu.so/d' ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sudo sed -i '/apc.so/d' ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sudo sed -i '/apcu.so/d' ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = apcu.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = apc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
