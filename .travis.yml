@@ -34,8 +34,8 @@ before_script:
   - printf "\n" | pecl install -f apcu
   - printf "\n" | pecl install -f apcu_bc
   - printf "\n" pecl install -f memcache
-  - sudo apt-get -y install php$(phpenv version-name)-memcached
-  - printf "\n" pecl install -f redis
+  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script: composer test
 
