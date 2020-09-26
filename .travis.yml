@@ -30,10 +30,10 @@ before_script:
   - mysql -u root -e "CREATE USER 'shieldon'@'localhost' IDENTIFIED BY 'taiwan';"
   - mysql -u root -e "GRANT ALL ON shieldon_unittest.* TO 'shieldon'@'localhost';"
   - pecl channel-update pecl.php.net
-  - pecl install -f apcu
-  - pecl install -f apcu_bc
-  - pecl install -f memcache
-  - pecl install -f memcachd
+  - printf "\n" | pecl install -f apcu
+  - printf "\n" | pecl install -f apcu_bc
+  - printf "\n" pecl install -f memcache
+  - printf "\n" pecl install -f memcachd
   - echo "extension=apcu_bc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension=apcu.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension=memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
