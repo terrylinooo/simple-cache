@@ -36,6 +36,11 @@ before_script:
   - printf "\n" pecl install -f memcache
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  # Change the apc.so position.
+  - sudo sed '/apc.so/d' ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sudo sed '/apcu.so/d' ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "extension = apcu.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "extension = apc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script: composer test
 
