@@ -1,8 +1,18 @@
 # PSR-16 Simple Cache
 
-![build](https://github.com/terrylinooo/simple-cache/workflows/build/badge.svg?branch=master) [![codecov](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/coverage.png?b=master)](https://codecov.io/gh/terrylinooo/simple-cache) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/?branch=master)
+ [![codecov](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/coverage.png?b=master)](https://codecov.io/gh/terrylinooo/simple-cache) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/?branch=master)
 
 PSR-16 simple cache drivers for PHP.
+
+##### Integration tests:
+
+| CI provider | Status |  PHP versions |
+| --- | --- | --- |
+| [GitHub Action](https://github.com/terrylinooo/simple-cache/actions) | ![build](https://github.com/terrylinooo/simple-cache/workflows/build/badge.svg?branch=master) | `7.1`, `7.2`, `7.3`
+| [Travis CI](https://travis-ci.org/terrylinooo/simple-cache) | ![Build Status](https://travis-ci.org/terrylinooo/simple-cache.svg?branch=master) | `7.1`, `7.2`, `7.3` | 
+| [Scrutinizer CI](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/build-status/master) | ![Build Status](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/build.png?b=master) | `7.2.5`
+
+---
 
 ## Table of Contents
 
