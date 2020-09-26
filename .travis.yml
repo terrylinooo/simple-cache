@@ -33,17 +33,18 @@ before_script:
   - pecl channel-update pecl.php.net
   - echo yes | pecl install -f apcu
   - echo yes | pecl install -f apcu_bc
-  - printf "\n" pecl install -f memcache
+  - pecl install -f memcache
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  # Change the apc.so position.
-  - echo "\n------------------\n"
+  # Print php.ini for debugging purpose.
   - cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - echo "\n------------------\n"
+  # Change the apc.so position to fix issues.
   - sudo sed -i '/apc.so/d' ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - sudo sed -i '/apcu.so/d' ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = apcu.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = apc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  # Enable APC in CLI environment.
+  - echo "apc.enable_cli = On" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script: composer test
 
