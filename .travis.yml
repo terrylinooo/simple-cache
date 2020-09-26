@@ -34,7 +34,7 @@ before_script:
   - printf "\n" | pecl install -f apcu
   - printf "\n" | pecl install -f apcu_bc
   - printf "\n" pecl install -f memcache
-  - sudo apt-get -y install php-memcached
+  - sudo apt-get -y install php$(phpenv version-name)-memcached
   - printf "\n" pecl install -f redis
 
 script: composer test
