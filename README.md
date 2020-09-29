@@ -180,25 +180,25 @@ public function get(string $key, mixed $default = null): mixed
 Example:
 
 ```php
-echo $cache->get('foo', 'placeholder'));
+echo $cache->get('foo', 'placeholder');
 // bar
 
 sleep(301);
 
-echo $cache->get('foo', 'placeholder'));
+echo $cache->get('foo', 'placeholder');
 // placeholder
 
 echo $cache->get('foo');
 // null
 
-echo $cache->get('foo2', 'placeholder'));
+echo $cache->get('foo2', 'placeholder');
 // bar2
 
-$example = $cache->get('foo3', 'placeholder'));
+$example = $cache->get('foo3', 'placeholder');
 var_dump($example);
 // string(11) "placeholder"
 
-$example = $cache->get('foo4', 'placeholder'));
+$example = $cache->get('foo4', 'placeholder');
 var_dump($example);
 /* 
     array(2) {
@@ -304,7 +304,7 @@ public function deleteMultiple(array $keys): bool
 Example:
 
 ```php
-if ($cache->deleteMultiple((['bar', 'bar2')) {
+if ($cache->deleteMultiple(['bar', 'bar2'])) {
     echo 'bar and bar2 have been deleted successfully.';
 } else {
     echo 'Failed to delete keys bar or bar2.';
