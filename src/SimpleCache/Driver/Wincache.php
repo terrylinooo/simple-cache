@@ -45,9 +45,9 @@ class Wincache extends CacheProvider
      */
     public function __construct(array $setting = [])
     {
-        if (!function_exists('apcu_fetch')) {
+        if (!function_exists('wincache_ucache_get')) {
             throw new CacheException(
-                'APCu extension is not enable.'
+                'WinCache extension is not enable.'
             );
         }
 
