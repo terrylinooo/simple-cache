@@ -131,4 +131,28 @@ class CacheTest extends CacheTestCase
         $result = $method->invokeArgs($cache, [$dateInterval, $time]);
         $this->assertFalse($result);
     }
+
+    public function testRebuildShouldReturnTrue()
+    {
+        $driver = new Cache('mysql', [
+            'dbname' => 'shieldon_unittest',
+            'user' => 'shieldon',
+            'pass' => 'taiwan',
+        ]);
+
+        $this->assertTrue($driver->rebuild());
+
+        $driver = new Cache('sqlite', [
+            'storage' => create_tmp_directory()
+        ]);
+
+        $this->assertTrue($driver->rebuild());
+    }
+
+    public function testRebuildShouldReturnFalse()
+    {
+        $driver = new Cache('apcu');
+
+        $this->assertFalse($driver->rebuild());
+    }
 }

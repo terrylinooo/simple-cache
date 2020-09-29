@@ -124,4 +124,19 @@ class Cache
     {
         return $this->driver->deleteMultiple($keys);
     }
+
+    /**
+     * Create or rebuid the data schema.
+     * This method is avaialbe for Mysql and Sqlite drivers.
+     *
+     * @return bool
+     */
+    public function rebuild(): bool
+    {
+        if (method_exists($this->driver, 'rebuild')) {
+            return $this->driver->rebuild();
+        }
+
+        return false;
+    }
 }
