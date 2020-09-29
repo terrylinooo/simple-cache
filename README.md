@@ -1,16 +1,34 @@
 # PSR-16 Simple Cache
 
- [![codecov](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/coverage.png?b=master)](https://codecov.io/gh/terrylinooo/simple-cache) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/?branch=master)
+| GitHub Action | Travis CI |  Scrutinizer CI | Code Coverage | Code Quality |
+| --- | --- | --- | --- | --- |
+| ![build](https://github.com/terrylinooo/simple-cache/workflows/build/badge.svg?branch=master) | [![Build Status](https://travis-ci.org/terrylinooo/simple-cache.svg?branch=master)](https://travis-ci.org/terrylinooo/simple-cache) | [![Build Status](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/build.png?b=master)](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/build-status/master) |  [![codecov](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/coverage.png?b=master)](https://codecov.io/gh/terrylinooo/simple-cache) |  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/?branch=master)
 
 PSR-16 simple cache drivers for PHP.
 
-##### Integration tests:
+#### Built-in drivers:
 
-| CI provider | Status |  PHP versions |
-| --- | --- | --- |
-| [GitHub Action](https://github.com/terrylinooo/simple-cache/actions) | ![build](https://github.com/terrylinooo/simple-cache/workflows/build/badge.svg?branch=master) | `7.1`, `7.2`, `7.3`
-| [Travis CI](https://travis-ci.org/terrylinooo/simple-cache) | ![Build Status](https://travis-ci.org/terrylinooo/simple-cache.svg?branch=master) | `7.1`, `7.2`, `7.3` | 
-| [Scrutinizer CI](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/build-status/master) | ![Build Status](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/build.png?b=master) | `7.2.5`
+The required parameters are marked by an asterisk (*)
+
+| Driver name | `($driver)`| PHP modules | `($config)`
+| --- | --- | --- | --- |
+| File | `file` | - | `*storage` |
+| Redis | `redis` | redis |  `host`, `port`, `user`, `pass` |
+| MySQL | `mysql` | pdo_mysql | `host`, `port`, `*user`, `*pass`, `*dbname`, `charset` |
+| SQLite | `sqlite` | pdo_sqlite | `*storage` |
+| APC | `apc` | apc | - |
+| APCu | `apcu` | apcu | - |
+| Memcache | `memcache` | memcache | `host`, `port` |
+| LibMemcached | `memcached` | memcached | `host`, `port` |
+| WinCache | `wincache` | wincache | - |
+
+Note: **WinCache** is excluded from unit testing since it's only used on Windows, and the testing processes are done on Linux environment.
+
+This command will show a list of the installed PHP modules.
+```bash
+php -m
+```
+Before you use, make sure you have the required PHP modules installed on the system.
 
 ---
 
@@ -51,31 +69,6 @@ composer require shieldon/simple-cache
 ### `Cache`
 
 Class `Cache` is an adapter that not only allows the implemented instance of `Psr\SimpleCache\CacheInterface`, but also has built-in drivers already.
-
-#### Built-in drivers:
-
-The required parameters are marked by an asterisk (*)
-
-| Driver name | ID  `($driver)`| PHP modules | Parameters `($config)`
-| --- | --- | --- | --- |
-| File | `file` | - | `*storage` |
-| Redis | `redis` | redis |  `host`, `port`, `user`, `pass` |
-| MySQL | `mysql` | PDO, pdo_mysql | `host`, `port`, `*user`, `*pass`, `*dbname`, `charset` |
-| SQLite | `sqlite` | PDO, pdo_sqlite | `*storage` |
-| APC | `apc` | apc | - |
-| APCu | `apcu` | apcu | - |
-| Memcache | `memcache` | memcache | `host`, `port` |
-| LibMemcached | `memcached` | memcached | `host`, `port` |
-| WinCache | `wincache` | wincache | - |
-
-Note: **WinCache** is excluded from unit testing since it's only used on Windows, and the testing processes are done on Linux environment.
-
-This command will show a list of the installed PHP modules.
-```bash
-php -m
-```
-Before you use, make sure you have the required PHP modules installed on the system.
-
 
 ####  __construct(`$driver = ''`, `$config = []`)
 
