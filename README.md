@@ -304,7 +304,7 @@ public function deleteMultiple(array $keys): bool
 Example:
 
 ```php
-if ($cache->deleteMultiple((['bar', 'bar2'])) {
+if ($cache->deleteMultiple(['bar', 'bar2'])) {
     echo 'bar and bar2 have been deleted successfully.';
 } else {
     echo 'Failed to delete keys bar or bar2.';
