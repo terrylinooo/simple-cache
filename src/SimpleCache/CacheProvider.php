@@ -166,7 +166,6 @@ abstract class CacheProvider implements CacheInterface
         } elseif ($ttl instanceof DateInterval) {
             $datetimeObj = new DateTime();
             $datetimeObj->add($ttl);
-            $datetimeObj->getTimestamp();
 
             if ($now - $timestamp < $datetimeObj->getTimestamp()) {
                 return false;
