@@ -6,6 +6,10 @@
 
 PSR-16 simple cache drivers for PHP.
 
+***Showcase***
+
+Simple Cache is used in [Cache Master](https://github.com/terrylinooo/cache-master), a [WordPress Cache Plugin](https://wordpress.org/plugins/cache-master/), and works great. Check it out if you are running WordPress sites, it will not let you down.
+
 #### Built-in drivers:
 
 The required parameters are marked by an asterisk (*)
