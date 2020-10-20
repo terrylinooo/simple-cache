@@ -37,7 +37,7 @@ before_script:
   - echo yes | pecl install -f apcu
   - echo yes | pecl install -f apcu_bc
   - echo yes | pecl install -f memcache
-  - echo yes | pecl install -f 
+  - echo yes | pecl install -f mongodb-1.7.5
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   # Print php.ini for debugging purpose.

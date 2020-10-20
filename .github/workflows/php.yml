@@ -35,6 +35,9 @@ jobs:
 
         - name: Start Redis service.
           run: sudo service redis-server start
+
+        - name: Start MongoDB service
+          run: sudo service mongodb start
           
         - name: Setup PHP with Xdebug
           uses: shivammathur/setup-php@v2
