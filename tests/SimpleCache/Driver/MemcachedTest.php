@@ -26,6 +26,11 @@ class MemcachedTest extends DriverIntegrationTestCase
         return $cache;
     }
 
+    public function testStart()
+    {
+        $this->console('Driver: Memcached');
+    }
+
     public function testCacheDriver()
     {
         $driver = $this->getCacheDriver();

@@ -25,6 +25,11 @@ class SqliteTest extends DriverIntegrationTestCase
         return $cache;
     }
 
+    public function testStart()
+    {
+        $this->console('Driver: SQLite');
+    }
+
     public function testCacheDriver()
     {
         $driver = $this->getCacheDriver();

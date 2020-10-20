@@ -19,6 +19,11 @@ use DateInterval;
 
 class CacheTest extends CacheTestCase
 {
+    public function testStart()
+    {
+        $this->console('Cache Provider');
+    }
+
     public function getInstance()
     {
         $driver = new Cache('file', [

@@ -23,6 +23,11 @@ class ApcuTest extends DriverIntegrationTestCase
         return $cache;
     }
 
+    public function testStart()
+    {
+        $this->console('Driver: APCu');
+    }
+
     public function testSupport()
     {
         $this->assertTrue(apcu_enabled());

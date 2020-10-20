@@ -23,6 +23,11 @@ class MongoTest extends DriverIntegrationTestCase
         return $cache;
     }
 
+    public function testStart()
+    {
+        $this->console('Driver: MongoDB');
+    }
+
     public function testCacheDriver()
     {
         $driver = $this->getCacheDriver();

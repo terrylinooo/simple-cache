@@ -23,6 +23,11 @@ class MockTest extends DriverIntegrationTestCase
         return $cache;
     }
 
+    public function testStart()
+    {
+        $this->console('Driver: Mock');
+    }
+
     public function testCacheDriver()
     {
         $driver = $this->getCacheDriver();

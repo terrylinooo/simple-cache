@@ -23,6 +23,11 @@ class ApcTest extends DriverIntegrationTestCase
         return $cache;
     }
 
+    public function testStart()
+    {
+        $this->console('Driver: Apc');
+    }
+
     public function testSupport()
     {
         $this->assertTrue(apc_enabled());

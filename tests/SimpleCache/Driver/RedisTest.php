@@ -23,6 +23,11 @@ class RedisTest extends DriverIntegrationTestCase
         return $cache;
     }
 
+    public function testStart()
+    {
+        $this->console('Driver: Redis');
+    }
+
     public function testCacheDriver()
     {
         $driver = $this->getCacheDriver();

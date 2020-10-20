@@ -17,6 +17,10 @@ use Shieldon\SimpleCache\Exception\CacheException;
 
 class AssertTraitTest extends CacheTestCase
 {
+    public function testStart()
+    {
+        $this->console('Assert Methods');
+    }
     public function testAssertArgumentStringGet()
     {
         $this->expectException(CacheArgumentException::class);

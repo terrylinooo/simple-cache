@@ -27,6 +27,11 @@ class MysqlTest extends DriverIntegrationTestCase
         return $cache;
     }
 
+    public function testStart()
+    {
+        $this->console('Driver: MySQL');
+    }
+
     public function testCacheDriver()
     {
         $driver = $this->getCacheDriver();
