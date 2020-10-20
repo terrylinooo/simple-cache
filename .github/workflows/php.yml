@@ -36,6 +36,9 @@ jobs:
         - name: Start Redis service.
           run: sudo service redis-server start
 
+        - name: Install MongoDB service.
+          run: sudo apt-get install -y mongodb
+
         - name: Start MongoDB service
           run: sudo service mongodb start
           
