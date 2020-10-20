@@ -18,6 +18,7 @@ build:
         - redis
         - memcache
         - memcached
+        - mongodb
         - APCu
         - apcu_bc
         - xdebug
@@ -26,6 +27,7 @@ build:
     mysql: true
     redis: true
     memcached: true
+    mongodb: true
   nodes:
     analysis:
       tests:

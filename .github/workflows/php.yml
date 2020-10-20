@@ -40,7 +40,7 @@ jobs:
           uses: shivammathur/setup-php@v2
           with:
             php-version: ${{ matrix.php-versions }}
-            extensions: mbstring, pdo, pdo_mysql, intl, zip, redis, ctype, json, apc, apcu, memcache, memcached
+            extensions: mbstring, pdo, pdo_mysql, intl, zip, redis, ctype, json, apc, apcu, memcache, memcached, mongodb
             ini-values: apc.enable_cli=On
             coverage: xdebug
 
