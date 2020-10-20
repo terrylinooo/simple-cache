@@ -17,7 +17,6 @@ build:
       pecl_extensions:
         - redis
         - memcache
-        - mongodb
         - APCu
         - apcu_bc
         - xdebug
