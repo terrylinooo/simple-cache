@@ -17,16 +17,16 @@ build:
       pecl_extensions:
         - redis
         - memcache
+        - memcached
         - APCu
         - apcu_bc
         - xdebug
-        - mongodb-1.7.5
+        - mongodb-1.5.0
       ini:
         'apc.enable_cli': 'On'
     mysql: true
     redis: true
     memcached: true
-    mongodb: true
   nodes:
     analysis:
       tests:
