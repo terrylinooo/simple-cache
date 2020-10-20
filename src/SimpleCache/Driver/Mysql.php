@@ -40,7 +40,8 @@ class Mysql extends CacheProvider
             'user'    => null,
             'pass'    => null,
             'dbname'  => null,
-            'charset' => 'utf8'
+            'table'   => 'cache_data',
+            'charset' => 'utf8',
         ];
 
         foreach (array_keys($config) as $key) {
