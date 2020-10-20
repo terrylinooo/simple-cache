@@ -11,6 +11,8 @@ tools:
   external_code_coverage: false
 
 build:
+  services:
+    mongo: 4
   environment:
     php:
       version: 7.2.5
