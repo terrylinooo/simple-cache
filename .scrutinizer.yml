@@ -27,6 +27,7 @@ build:
     mysql: true
     redis: true
     memcached: true
+    mongodb: true
   nodes:
     analysis:
       tests:
