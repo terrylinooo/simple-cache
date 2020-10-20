@@ -18,7 +18,8 @@ The required parameters are marked by an asterisk (*)
 | --- | --- | --- | --- |
 | File | `file` | - | `*storage` |
 | Redis | `redis` | redis |  `host`, `port`, `user`, `pass` |
-| MySQL | `mysql` | pdo_mysql | `host`, `port`, `*user`, `*pass`, `*dbname`, `charset` |
+| MongoDB | `mongo` | mongodb | `host`, `port`, `user`, `pass`, `dbname`, `collection` |
+| MySQL | `mysql` | pdo_mysql | `host`, `port`, `*user`, `*pass`, `*dbname`, `table`, `charset` |
 | SQLite | `sqlite` | pdo_sqlite | `*storage` |
 | APC | `apc` | apc | - |
 | APCu | `apcu` | apcu | - |
@@ -29,6 +30,7 @@ The required parameters are marked by an asterisk (*)
 Note: **WinCache** is excluded from unit testing since it's only used on Windows, and the testing processes are done on Linux environment.
 
 This command will show a list of the installed PHP modules.
+
 ```bash
 php -m
 ```
@@ -125,6 +127,7 @@ $config = [
     'user'    => null,
     'pass'    => null,
     'dbname'  => null,
+    'table'   => 'cache_data',
     'charset' => 'utf8'
 ];
 ```
@@ -133,6 +136,26 @@ $config = [
 ```php
 $config = [
     'storage' => '/tmp/simple-cache',
+];
+```
+
+*Mongo*
+```php
+$config = [
+    'host'       => '127.0.0.1',
+    'port'       => 27017,
+    'user'       => null,
+    'pass'       => null,
+    'database'   => 'test',
+    'collection' => 'cache_data',
+];
+```
+
+*Memcache*, *Memcached*
+```php
+$config = [
+    'host' => '127.0.0.1',
+    'port' => 11211,
 ];
 ```
 
