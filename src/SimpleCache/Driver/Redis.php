@@ -30,7 +30,7 @@ class Redis extends CacheProvider
     /**
      * The Redis instance.
      *
-     * @var Redis|null
+     * @var \Redis|null
      */
     protected $redis = null;
 

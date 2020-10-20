@@ -30,7 +30,7 @@ class Memcached extends CacheProvider
     /**
      * The Memcached instance.
      *
-     * @var Memcached|null
+     * @var \Memcached|null
      */
     protected $memcached = null;
 

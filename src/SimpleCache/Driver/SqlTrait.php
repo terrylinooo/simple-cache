@@ -24,7 +24,7 @@ Trait SqlTrait
     /**
      * The PDO instance.
      *
-     * @var PDO
+     * @var \PDO
      */
     protected $db;
     

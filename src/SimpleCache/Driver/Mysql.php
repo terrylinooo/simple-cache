@@ -14,7 +14,9 @@ namespace Shieldon\SimpleCache\Driver;
 
 use Shieldon\SimpleCache\CacheProvider;
 use Shieldon\SimpleCache\Exception\CacheArgumentException;
+use Shieldon\SimpleCache\Exception\CacheException;
 use PDO;
+use PDOException;
 use Exception;
 use function file_put_contents;
 
