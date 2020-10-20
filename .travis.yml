@@ -6,8 +6,10 @@ language: php
 branches:
   only:
     - master
-  except:
+    - main
     - development
+  except:
+    - development-2
 
 php:
   - 7.1
@@ -35,7 +37,7 @@ before_script:
   - echo yes | pecl install -f apcu
   - echo yes | pecl install -f apcu_bc
   - echo yes | pecl install -f memcache
-  - echo yes | pecl install -f mongodb
+  - echo yes | pecl install -f 
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   # Print php.ini for debugging purpose.
