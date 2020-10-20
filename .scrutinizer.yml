@@ -20,6 +20,7 @@ build:
         - APCu
         - apcu_bc
         - xdebug
+        - mongodb-1.7.5
       ini:
         'apc.enable_cli': 'On'
     mysql: true
@@ -39,7 +40,6 @@ build:
       - mysql -u root -e 'CREATE DATABASE shieldon_unittest;'
       - mysql -u root -e "CREATE USER 'shieldon'@'localhost' IDENTIFIED BY 'taiwan';"
       - mysql -u root -e "GRANT ALL ON shieldon_unittest.* TO 'shieldon'@'localhost';"
-      - sudo apt-get install -y php7.2-mongodb 
   tests:
     before:
       -
