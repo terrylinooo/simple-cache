@@ -126,14 +126,8 @@ class CacheTest extends CacheTestCase
         $method = $reflection->getMethod('isExpired');
         $method->setAccessible(true);
 
-        // Test null
-        $result = $method->invokeArgs($cache, [null, $time]);
-        $this->assertFalse($result);
-
-        // Test DateInterval
-        $dateInterval = new DateInterval('PT5M');
-
-        $result = $method->invokeArgs($cache, [$dateInterval, $time]);
+        // Test zero
+        $result = $method->invokeArgs($cache, [0, $time]);
         $this->assertFalse($result);
     }
 

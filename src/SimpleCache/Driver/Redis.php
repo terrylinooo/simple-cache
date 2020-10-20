@@ -163,6 +163,10 @@ class Redis extends CacheProvider
             'value'     => $value
         ];
 
+        if (empty($ttl)) {
+            $ttl = null;
+        }
+
         $result = $this->redis->set(
             $this->getKeyName($key),
             serialize($contents),

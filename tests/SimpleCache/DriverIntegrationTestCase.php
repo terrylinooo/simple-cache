@@ -12,6 +12,7 @@ namespace Shieldon\Test\SimpleCache;
 
 use Psr\SimpleCache\CacheInterface;
 use Shieldon\Test\SimpleCache\CacheTestCase;
+use DateInterval;
 use function method_exists;
 
 /**
@@ -42,7 +43,7 @@ abstract class DriverIntegrationTestCase extends CacheTestCase
         }
 
         // Test method `set()` and `get()`
-        $cache->set('foo', 'bar', 300);
+        $cache->set('foo', 'bar');
         $this->assertSame('bar', $cache->get('foo'));
 
         $cache->set('foo', 'bar bar', 300);
@@ -113,5 +114,15 @@ abstract class DriverIntegrationTestCase extends CacheTestCase
         sleep(6);
         $this->assertSame(null, $cache->get('foo'));
         $this->assertFalse($cache->has('foo'));
+
+        // Test DateInterval
+        $dateInterval = new DateInterval('PT2S');
+        $cache->set('fkk', 'bar', $dateInterval);
+        $this->assertSame('bar', $cache->get('fkk'));
+        $this->assertTrue($cache->has('fkk'));
+
+        sleep(3);
+        $this->assertSame(null, $cache->get('fkk'));
+        $this->assertFalse($cache->has('fkk'));
     }
 }

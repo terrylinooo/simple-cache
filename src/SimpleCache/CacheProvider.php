@@ -58,6 +58,16 @@ abstract class CacheProvider implements CacheInterface
 
         $timestamp = time();
 
+        if (is_null($ttl)) {
+            $ttl = 0;
+
+        } elseif ($ttl instanceof DateInterval) {
+            $datetimeObj = new DateTime();
+            $datetimeObj->add($ttl);
+
+            $ttl = $datetimeObj->getTimestamp() - $timestamp;
+        }
+
         return $this->doSet($key, $value, $ttl, $timestamp);
     }
 
@@ -148,28 +158,21 @@ abstract class CacheProvider implements CacheInterface
     /**
      * Check if the TTL is expired or not.
      *
-     * @param int|null|DateInterval $ttl       The time to live of a cached data.
-     * @param int                   $timestamp The unix timesamp that want to check.
+     * @param int $ttl       The time to live of a cached data.
+     * @param int $timestamp The unix timesamp that want to check.
      * 
      * @return bool
      */
-    protected function isExpired($ttl, int $timestamp): bool
+    protected function isExpired(int $ttl, int $timestamp): bool
     {
         $now = time();
 
-        if (is_null($ttl)) {
+        // If $ttl equal to 0 means that never expires.
+        if (empty($ttl)) {
             return false;
 
-        } elseif (is_integer($ttl) && ($now - $timestamp < $ttl)) {
+        } elseif ($now - $timestamp < $ttl) {
             return false;
-
-        } elseif ($ttl instanceof DateInterval) {
-            $datetimeObj = new DateTime();
-            $datetimeObj->add($ttl);
-
-            if ($now - $timestamp < $datetimeObj->getTimestamp()) {
-                return false;
-            }
         }
 
         return true;
