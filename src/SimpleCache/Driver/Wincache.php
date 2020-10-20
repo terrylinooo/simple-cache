@@ -89,7 +89,7 @@ class Wincache extends CacheProvider
         $contents = [
             'timestamp' => $timestamp,
             'ttl'       => $ttl,
-            'value'     => $value
+            'value'     => $value,
         ];
 
         $result = wincache_ucache_set(
