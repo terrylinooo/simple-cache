@@ -105,7 +105,7 @@ class Memcached extends CacheProvider
         if (empty($content)) {
             return [];
         }
-        $data = unserialize($content);
+        $data = $content;
 
         return $data;
     }
@@ -130,7 +130,7 @@ class Memcached extends CacheProvider
 
         $result = $this->memcached->set(
             $key,
-            serialize($contents),
+            $contents,
             $ttl
         );
 
