@@ -134,5 +134,23 @@ class Wincache extends CacheProvider
     {
         return wincache_ucache_exists($key);
     }
+
+    /**
+     * Fetch all cache items.
+     *
+     * @return array
+     */
+    protected function getAll(): array
+    {
+        $list = [];
+        $info = wincache_ucache_info();
+
+        foreach ($info['ucache_entries'] as $item) {
+            $key = $item['key_name'];
+            $value = $this->doGet($key);
+            $list[$key] = $value;
+        }
+        return $list;
+    }
 }
 

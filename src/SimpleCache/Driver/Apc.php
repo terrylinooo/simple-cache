@@ -145,9 +145,8 @@ class Apc extends CacheProvider
         $list = [];
 
         foreach (new APCIterator('/^sc_/') as $item) {
-            $key   = str_replace('sc_', '', $item['key']);
+            $key = str_replace('sc_', '', $item['key']);
             $value = unserialize($item['value']);
-
             $list[$key] = $value;
         }
 
