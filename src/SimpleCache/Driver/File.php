@@ -149,6 +149,29 @@ class File extends CacheProvider
     }
 
     /**
+     * Fetch all cache items.
+     *
+     * @return attay
+     */
+    protected function getAll(): array
+    {
+        $directory = new DirectoryIterator($this->storage);
+        $list = [];
+
+        foreach ($directory as $file) {
+            $ext = $file->getExtension();
+
+            if ($file->isFile() && $ext === 'cache') {
+                $key = str_replace('.' . $ext, '', $file->getFilename());
+                $value = $this->doGet($key);
+
+                $list[$key] = $value;
+            }
+        }
+        return $list;
+    }
+
+    /**
      * Get the path of a cache file.
      *
      * @param string $key The key of a cache.

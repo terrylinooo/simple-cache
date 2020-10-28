@@ -157,4 +157,28 @@ Trait SqlTrait
 
         return $count > 0;
     }
+
+    /**
+     * Fetch all cache items.
+     *
+     * @return array
+     */
+    protected function getAll(): array
+    {
+        $list = [];
+
+        $sql = 'SELECT * FROM ' . $this->table;
+
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        $results = $query->fetchAll($this->db::FETCH_ASSOC);
+
+        foreach ($results as $row) {
+            $key   = $row['cache_key'];
+            $value = $row['cache_value'];
+
+            $list[$key] = unserialize($value);
+        }
+        return $list;
+    }
 }

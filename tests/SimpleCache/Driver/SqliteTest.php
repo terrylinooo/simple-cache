@@ -35,4 +35,25 @@ class SqliteTest extends DriverIntegrationTestCase
         $driver = $this->getCacheDriver();
         $this->assertTrue($driver instanceof CacheInterface);
     }
+
+    public function testGetAll()
+    {
+        $cache = $this->getCacheDriver();
+        $cache->clear();
+    
+        $cache->setMultiple([
+            'foo9' => 'bar9',
+            'foo10' => 'bar10',
+        ], 300);
+
+        $reflection = new \ReflectionObject($cache);
+        $method = $reflection->getMethod('getAll');
+        $method->setAccessible(true);
+
+        $items = $method->invokeArgs($cache, []);
+        
+        $this->assertEquals(count($items), 2);
+        $this->assertSame($items['foo9']['value'], 'bar9');
+        $this->assertSame($items['foo10']['value'], 'bar10');
+    }
 }

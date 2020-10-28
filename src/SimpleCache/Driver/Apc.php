@@ -20,6 +20,7 @@ use function serialize;
 /**
  * Provided by APC extension.
  */
+use APCIterator;
 use function apc_clear_cache;
 use function apc_delete;
 use function apc_exists;
@@ -63,7 +64,7 @@ class Apc extends CacheProvider
     protected function doGet(string $key): array
     {
         $success = false;
-		$content = apc_fetch($key, $success);
+		$content = apc_fetch($this->getKeyName($key), $success);
 
         if (empty($content) || !$success) {
             return [];
@@ -92,7 +93,7 @@ class Apc extends CacheProvider
         ];
 
         $result = apc_store(
-            $key,
+            $this->getKeyName($key),
             serialize($contents),
             $ttl
         );
@@ -109,7 +110,7 @@ class Apc extends CacheProvider
      */
     protected function doDelete(string $key): bool
     {
-        return apc_delete($key);
+        return apc_delete($this->getKeyName($key));
     }
 
     /**
@@ -131,7 +132,38 @@ class Apc extends CacheProvider
      */
     protected function doHas(string $key): bool
     {
-        return apc_exists($key);
+        return apc_exists($this->getKeyName($key));
+    }
+
+    /**
+     * Fetch all cache items.
+     *
+     * @return array
+     */
+    protected function getAll(): array
+    {
+        $list = [];
+
+        foreach (new APCIterator('/^sc_/') as $item) {
+            $key   = str_replace('sc_', '', $item['key']);
+            $value = unserialize($item['value']);
+
+            $list[$key] = $value;
+        }
+
+        return $list;
+    }
+
+    /**
+     * Get the key name of a cache.
+     *
+     * @param string $key The key of a cache.
+     *
+     * @return string
+     */
+    private function getKeyName(string $key): string
+    {
+        return 'sc_' . $key;
     }
 }
 

@@ -299,7 +299,7 @@ class Mongo extends CacheProvider
      */
     private function getKeyName(string $key): string
     {
-        return 'sc_' . md5($key);
+        return 'sc_' . $key;
     }
 
     /**
@@ -310,5 +310,26 @@ class Mongo extends CacheProvider
     private function getCollectionName(): string
     {
         return $this->dbname . '.' . $this->collection; 
+    }
+
+    /**
+     * Fetch all cache items.
+     *
+     * @return array
+     */
+    protected function getAll(): array
+    {
+        $list = [];
+
+        $query = new MongoQuery([]);
+        $cursor = $this->mongo->executeQuery($this->getCollectionName(), $query);
+
+        foreach ($cursor as $document) {
+            $key   = str_replace('sc_', '', $document->_id);
+            $value = unserialize($document->content);
+
+            $list[$key] = $value;
+        }
+        return $list;
     }
 }

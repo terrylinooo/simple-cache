@@ -195,7 +195,7 @@ class Redis extends CacheProvider
      */
     protected function doClear(): bool
     {
-        $keys = $this->redis->keys('simple_cache:*');
+        $keys = $this->redis->keys('sc:*');
 
         if (!empty($keys)) {
             foreach ($keys as $key) {
@@ -237,7 +237,7 @@ class Redis extends CacheProvider
      */
     private function getKeyName(string $key): string
     {
-        return 'simple_cache:' . md5($key);
+        return 'sc:' . md5($key);
     }
 }
 

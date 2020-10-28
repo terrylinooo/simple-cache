@@ -16,7 +16,6 @@ use Psr\SimpleCache\CacheInterface;
 use Shieldon\SimpleCache\AssertTrait;
 use DateInterval;
 use Datetime;
-use function is_integer;
 use function is_null;
 use function time;
 
@@ -176,6 +175,51 @@ abstract class CacheProvider implements CacheInterface
         }
 
         return true;
+    }
+
+    /**
+     * Performing cache data garbage collection for drivers that don't have 
+     * ability to remove expired items automatically.
+     * This method is not needed for Redis and Memcached driver.
+     *
+     * @param int $expires     The time of expiring.
+     * @param int $probability Numerator.
+     * @param int $divisor     Denominator.
+     *
+     * @return bool
+     */
+    protected function gc(int $expires, int $probability, int $divisor): bool
+    {
+        $chance = intval($divisor / $probability);
+        $hit = rand(1, $chance);
+
+        if ($hit === 1) {
+            
+            $data = $this->getAll();
+
+            if (!empty($data)) {
+                foreach ($data as $key => $value) {
+                    $lasttime = (int) $value['timestamp'];
+    
+                    if (time() - $lasttime > $expires) {
+                        $this->delete($key);
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Fetch all cache items to prepare removing expired items.
+     * This method is used only in `gc()`.
+     *
+     * @return array
+     */
+    private function getAll(): array
+    {
+        return [];
     }
 
     /**

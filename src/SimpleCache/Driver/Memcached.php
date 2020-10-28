@@ -17,8 +17,6 @@ use Shieldon\SimpleCache\Exception\CacheException;
 use Memcached as MemcachedServer;
 use Exception;
 use function array_keys;
-use function unserialize;
-use function serialize;
 
 /**
  * A cache driver class provided by libMemcached
