@@ -1,0 +1,1 @@
+php ../vendor/phpunit/phpunit/phpunit --configuration ../phpunit.xml --filter MysqlTest ../tests/SimpleCache/Driver/MysqlTest.php
