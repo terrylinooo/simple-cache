@@ -86,13 +86,13 @@ class CacheTest extends CacheTestCase
 
         $driver = $this->getInstance($driverType);
         $driver->clear();
-        $driver->set('foo', 'aa', 1);
-        $driver->set('foo2', 'bb', 1);
+        $driver->set('foo', 'aa', 3);
+        $driver->set('foo2', 'bb', 3);
 
         $this->assertSame('aa', $driver->get('foo'));
         $this->assertSame('bb', $driver->get('foo2'));
 
-        sleep(3);
+        sleep(5);
 
         // Start the garbage collection.
         if ($hit) {
