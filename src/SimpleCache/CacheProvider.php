@@ -16,7 +16,9 @@ use Psr\SimpleCache\CacheInterface;
 use Shieldon\SimpleCache\AssertTrait;
 use DateInterval;
 use Datetime;
+use function intval;
 use function is_null;
+use function rand;
 use function time;
 
 /**
@@ -169,6 +171,7 @@ abstract class CacheProvider implements CacheInterface
         if ($probability > $divisor) {
             $probability = $divisor;
         }
+
         $chance = intval($divisor / $probability);
         $hit    = rand(1, $chance);
         $list   = [];

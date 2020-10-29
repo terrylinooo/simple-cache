@@ -20,11 +20,12 @@ use function serialize;
 /**
  * Provided by WinCache
  */
-use function wincache_ucache_get;
-use function wincache_ucache_set;
-use function wincache_ucache_delete;
 use function wincache_ucache_clear;
+use function wincache_ucache_delete;
 use function wincache_ucache_exists;
+use function wincache_ucache_get;
+use function wincache_ucache_info;
+use function wincache_ucache_set;
 
 /**
  * A cache driver class provided by WinCache (Windows Cache for PHP)
@@ -148,6 +149,7 @@ class Wincache extends CacheProvider
         foreach ($info['ucache_entries'] as $item) {
             $key = $item['key_name'];
             $value = $this->doGet($key);
+
             $list[$key] = $value;
         }
         return $list;

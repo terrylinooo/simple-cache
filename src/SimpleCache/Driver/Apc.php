@@ -14,8 +14,9 @@ namespace Shieldon\SimpleCache\Driver;
 
 use Shieldon\SimpleCache\CacheProvider;
 use Shieldon\SimpleCache\Exception\CacheException;
-use function unserialize;
 use function serialize;
+use function str_replace;
+use function unserialize;
 
 /**
  * Provided by APC extension.
@@ -147,6 +148,7 @@ class Apc extends CacheProvider
         foreach (new APCIterator('/^sc_/') as $item) {
             $key = str_replace('sc_', '', $item['key']);
             $value = unserialize($item['value']);
+
             $list[$key] = $value;
         }
 

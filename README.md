@@ -60,6 +60,7 @@ Before you use, make sure you have the required PHP modules installed on the sys
 - Build Data Schema
     - MySQL
     - SQLite
+- Garbage Collection
 - Author
 - License
 

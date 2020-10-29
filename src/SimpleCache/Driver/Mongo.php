@@ -281,6 +281,7 @@ class Mongo extends CacheProvider
         foreach ($cursor as $document) {
             $key = str_replace('sc_', '', $document->_id);
             $value = unserialize($document->content);
+
             $list[$key] = $value;
         }
         return $list;

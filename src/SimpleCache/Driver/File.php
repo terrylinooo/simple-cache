@@ -22,6 +22,7 @@ use function file_put_contents;
 use function is_file;
 use function rtrim;
 use function serialize;
+use function str_replace;
 use function unlink;
 use function unserialize;
 
