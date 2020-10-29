@@ -396,10 +396,10 @@ var_dump($expiredItems);
 
 /* 
     array(2) {
-    ["foo2"]=>
-    string(4) "bar2"
-    ["foo3"]=>
-    string(4) "bar3"
+    [0]=>
+    string(4) "foo2"
+    [1]=>
+    string(4) "foo3"
     }
 */
 ```
