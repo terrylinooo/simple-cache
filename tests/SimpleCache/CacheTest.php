@@ -303,9 +303,7 @@ class CacheTest extends CacheTestCase
         $this->assertSame(null, $driver->get('foo'));
         $this->assertSame(null, $driver->get('foo2'));
 
-        $this->assertSame('foo', $removedList[0]);
-        $this->assertSame('foo2', $removedList[1]);
+        $this->assertContains('foo', $removedList);
+        $this->assertContains('foo2', $removedList);
     }
-
-    
 }
