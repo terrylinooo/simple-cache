@@ -15,7 +15,6 @@ use Shieldon\SimpleCache\Cache;
 use Shieldon\Test\SimpleCache\CacheTestCase;
 use Shieldon\SimpleCache\Driver\Mock;
 use Shieldon\SimpleCache\Exception\CacheArgumentException;
-use DateInterval;
 
 class CacheTest extends CacheTestCase
 {
@@ -24,20 +23,109 @@ class CacheTest extends CacheTestCase
         $this->console('Cache Provider');
     }
 
-    public function getInstance()
+    /**
+     * Test provider.
+     *
+     * @param string $type     The driver's type.
+     * @param array  $settings The driver's settings.
+     *
+     * @return Cache
+     */
+    public function getInstance($type = 'file', $settings = [])
     {
-        $driver = new Cache('file', [
-            'storage' => create_tmp_directory()
-        ]);
+        switch ($type) {
+            case 'apc':
+            case 'apcu':
+            case 'memcache':
+            case 'memcached':
+            case 'mongo':
+            case 'redis':
+                $driver = new Cache($type, $settings);
+                break;
+
+            case 'mysql':
+                $settings['dbname'] = 'shieldon_unittest';
+                $settings['user']   = 'shieldon';
+                $settings['pass']   = 'taiwan';
+
+                $driver = new Cache($type, $settings);
+                break;
+
+            case 'sqlite':
+                $settings['storage'] = create_tmp_directory();
+                $driver = new Cache($type, $settings);
+                break;
+
+            case 'file':
+            default:
+                $settings['storage'] = create_tmp_directory();
+                $driver = new Cache('file', $settings);
+                break;
+        }
 
         return $driver;
     }
 
+    /**
+     * Test provider.
+     *
+     * @param string $driverType The driver's type.
+     * @param bool   $hit        The GC is it or not.
+     *
+     * @return void
+     */
+    public function garbageCollection(string $driverType, bool $hit = true)
+    {
+        $text = 'not hit';
+
+        if ($hit) {
+            $text = 'hit';
+        }
+
+        $this->console('Garbage collection test: ' . ucfirst($driverType) . ' (' . $text . ')');
+
+        $driver = $this->getInstance($driverType);
+        $driver->clear();
+        $driver->set('foo', 'aa', 1);
+        $driver->set('foo2', 'bb', 1);
+
+        $this->assertSame('aa', $driver->get('foo'));
+        $this->assertSame('bb', $driver->get('foo2'));
+
+        sleep(3);
+
+        // Start the garbage collection.
+        if ($hit) {
+
+            $settings = [
+                'gc_enable'      => true,
+                'gc_divisor'     => 1,
+                'gc_probability' => 2,
+            ];
+    
+            $driver = $this->getInstance($driverType, $settings);
+    
+            $this->assertSame(null, $driver->get('foo'));
+            $this->assertSame(null, $driver->get('foo2'));
+        } else {
+            $settings = [
+                'gc_enable'      => true,
+                'gc_divisor'     => 99999999,
+                'gc_probability' => 1,
+            ];
+    
+            $driver = $this->getInstance($driverType, $settings);
+    
+            sleep(3);
+    
+            $this->assertSame(null, $driver->get('foo'));
+            $this->assertSame(null, $driver->get('foo2'));
+        }
+    }
+
     public function testCacheInitialize()
     {
-        $driver = new Cache('file', [
-            'storage' => create_tmp_directory()
-        ]);
+        $driver = $this->getInstance();
 
         $reflection = new \ReflectionObject($driver);
         $t = $reflection->getProperty('driver');
@@ -133,11 +221,7 @@ class CacheTest extends CacheTestCase
 
     public function testRebuildShouldReturnTrue()
     {
-        $driver = new Cache('mysql', [
-            'dbname' => 'shieldon_unittest',
-            'user' => 'shieldon',
-            'pass' => 'taiwan',
-        ]);
+        $driver = $this->getInstance('mysql');
 
         $this->assertTrue($driver->rebuild());
 
@@ -150,8 +234,78 @@ class CacheTest extends CacheTestCase
 
     public function testRebuildShouldReturnFalse()
     {
-        $driver = new Cache('apcu');
+        $driver = $this->getInstance('apcu');
 
         $this->assertFalse($driver->rebuild());
     }
+
+    public function testGarbageCollectionForFileDriver()
+    {
+        $this->garbageCollection('file');
+        $this->garbageCollection('file', false);
+    }
+
+    public function testGarbageCollectionForRedisDriver()
+    {
+        $this->garbageCollection('redis');
+    }
+
+    public function testGarbageCollectionForMemcacheDriver()
+    {
+        $this->garbageCollection('memcache');
+    }
+
+    public function testGarbageCollectionForMemcachedDriver()
+    {
+        $this->garbageCollection('memcached');
+    }
+
+    public function testGarbageCollectionForApcDriver()
+    {
+        $this->garbageCollection('apc');
+    }
+
+    public function testGarbageCollectionForApcuDriver()
+    {
+        $this->garbageCollection('apcu');
+    }
+
+    public function testGarbageCollectionForMysqlDriver()
+    {
+        $this->garbageCollection('mysql');
+    }
+
+    public function testGarbageCollectionForSqliteDriver()
+    {
+        $this->garbageCollection('sqlite');
+    }
+    public function testGarbageCollectionForMongodbDriver()
+    {
+        $this->garbageCollection('mongo');
+    }
+
+    public function testClearExpiredItems()
+    {
+        $this->console('Clear expired items.');
+
+        $driver = $this->getInstance();
+        $driver->clear();
+        $driver->set('foo', 'aa', 1);
+        $driver->set('foo2', 'bb', 1);
+
+        $this->assertSame('aa', $driver->get('foo'));
+        $this->assertSame('bb', $driver->get('foo2'));
+
+        sleep(2);
+
+        $removedList = $driver->clearExpiredItems();
+
+        $this->assertSame(null, $driver->get('foo'));
+        $this->assertSame(null, $driver->get('foo2'));
+
+        $this->assertSame('foo', $removedList[0]);
+        $this->assertSame('foo2', $removedList[1]);
+    }
+
+    
 }

@@ -51,6 +51,7 @@ class Cache
                 $class = '\Shieldon\SimpleCache\Driver\\' . $class;
 
                 $this->driver = new $class($settings);
+                $this->gc($settings);
             }
         }
 
@@ -126,7 +127,7 @@ class Cache
     }
 
     /**
-     * Create or rebuid the data schema.
+     * Create or rebuid the data schema. [Non-PSR-16]
      * This method is avaialbe for Mysql and Sqlite drivers.
      *
      * @return bool
@@ -138,5 +139,46 @@ class Cache
         }
 
         return false;
+    }
+
+    /**
+     * Clear all expired items. [Non-PSR-16]
+     *
+     * @return array The list of the removed items.
+     */
+    public function clearExpiredItems(): array
+    {
+        return $this->gc([
+            'gc_enable'      => true,
+            'gc_probability' => 1,
+            'gc_divisor'     => 1,
+        ]);
+    }
+
+    /**
+     * Performing cache data garbage collection for drivers that don't have 
+     * ability to remove expired items automatically.
+     * This method is not needed for Redis and Memcached driver.
+     *
+     * @param array $settings [bool $gc_enable, int $gc_probability, int $gc_divisor]
+     *
+     * @return array The list of the removed items.
+     */
+    protected function gc(array $settings = []): array
+    {
+        if (empty($settings['gc_enable'])) {
+            return [];
+        }
+
+        $removedList = [];
+
+        $probability = $settings['gc_probability'] ?? 1;
+        $divisor     = $settings['gc_divisor']     ?? 100;
+
+        if (method_exists($this->driver, 'gc')) {
+            $removedList = $this->driver->gc($probability, $divisor);
+        }
+
+        return $removedList;
     }
 }

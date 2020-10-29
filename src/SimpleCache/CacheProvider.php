@@ -155,6 +155,46 @@ abstract class CacheProvider implements CacheInterface
     }
 
     /**
+     * Performing cache data garbage collection for drivers that don't have 
+     * ability to remove expired items automatically.
+     * This method is not needed for Redis and Memcached driver.
+     *
+     * @param int $probability Numerator.
+     * @param int $divisor     Denominator.
+     *
+     * @return array
+     */
+    public function gc(int $probability, int $divisor): array
+    {
+        if ($probability > $divisor) {
+            $probability = $divisor;
+        }
+        $chance = intval($divisor / $probability);
+        $hit    = rand(1, $chance);
+        $list   = [];
+
+        if ($hit === 1) {
+
+            // Always return [] from Redis and Memcached driver.
+            $data = $this->getAll();
+
+            if (!empty($data)) {
+                foreach ($data as $key => $value) {
+                    $ttl      = (int) $value['ttl'];
+                    $lasttime = (int) $value['timestamp'];
+
+                    if ($this->isExpired($ttl, $lasttime)) {
+                        $this->delete($key);
+
+                        $list[] = $key;
+                    }
+                }
+            }
+        }
+        return $list;
+    }
+
+    /**
      * Check if the TTL is expired or not.
      *
      * @param int $ttl       The time to live of a cached data.
@@ -178,46 +218,13 @@ abstract class CacheProvider implements CacheInterface
     }
 
     /**
-     * Performing cache data garbage collection for drivers that don't have 
-     * ability to remove expired items automatically.
-     * This method is not needed for Redis and Memcached driver.
-     *
-     * @param int $expires     The time of expiring.
-     * @param int $probability Numerator.
-     * @param int $divisor     Denominator.
-     *
-     * @return bool
-     */
-    protected function gc(int $expires, int $probability, int $divisor): bool
-    {
-        $chance = intval($divisor / $probability);
-        $hit = rand(1, $chance);
-
-        if ($hit === 1) {
-            
-            $data = $this->getAll();
-
-            if (!empty($data)) {
-                foreach ($data as $key => $value) {
-                    $lasttime = (int) $value['timestamp'];
-    
-                    if (time() - $lasttime > $expires) {
-                        $this->delete($key);
-                    }
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Fetch all cache items to prepare removing expired items.
-     * This method is used only in `gc()`.
+     * This method is not needed for Redis and Memcached driver because that
+     * it is used only in `gc()`.
      *
      * @return array
      */
-    private function getAll(): array
+    protected function getAll(): array
     {
         return [];
     }

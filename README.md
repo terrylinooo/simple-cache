@@ -56,6 +56,7 @@ Before you use, make sure you have the required PHP modules installed on the sys
     - setMultiple
     - deleteMultiple
     - clear
+    - clearExpiredItems `(Non-PSR-16)`
 - Build Data Schema
     - MySQL
     - SQLite
@@ -173,6 +174,7 @@ Those API methods are defined on `Psr\SimpleCache\CacheInterface`. Please check 
 - getMultiple
 - deleteMultiple
 - clear
+- clearExpiredItems *(Non-PSR-16)*
 
 ### set
 
@@ -369,6 +371,38 @@ if ($cache->clear()) {
 // All cached data has been deleted successfully.
 ```
 
+### clearExpiredItems `Non-PSR-16`
+
+```php
+public function clearExpiredItems(): array
+```
+
+This method will return a list of the removed cache keys.
+
+*Note*: **Redis** and **Memcache**, **Memcached** drivers will always return an empty array. See *Garbage Collection* section below.
+
+Example:
+
+```php
+$cache->set('foo', 'bar', 300);
+$cache->set('foo2', 'bar2', 5);
+$cache->set('foo3', 'bar3', 5);
+
+sleep(6);
+
+$expiredItems = $cache->clearExpiredItems();
+var_dump($expiredItems);
+
+/* 
+    array(2) {
+    ["foo2"]=>
+    string(4) "bar2"
+    ["foo3"]=>
+    string(4) "bar3"
+    }
+*/
+```
+
 ---
 
 ## Build Data Schema
@@ -401,6 +435,39 @@ CREATE TABLE IF NOT EXISTS cache_data (
     cache_value LONGTEXT
 );
 ```
+
+---
+
+## Garbage Collection
+
+For built-in drivers, you can enable the garbage collection to clear expired cache from your system automatically.
+
+Use those parameters:
+```php
+$config = [
+    'gc_enable'      => true,
+    'gc_divisor'     => 100, // default
+    'gc_probability' => 1, // default
+];
+```
+It means there will be a `1%` chance of performing the garbage collection.
+Do not use it as 100% chance becasue it will fetch all keys and check them one by one, totally unnecessary. 
+
+Example:
+```php
+$driver = new \Shieldon\SimpleCache\Cache('file', [
+    'storage'   => __DIR__ . '/../tmp',
+    'gc_enable' => true,
+]);
+```
+
+You can just use the `gc_enable` to enable garbage collection.
+
+### Note
+
+For **Redis** and **Memcache**, **Memcached** drivers, there is no need to use this method becasue that the expired items will be cleared automatically.
+
+
 
 ---
 

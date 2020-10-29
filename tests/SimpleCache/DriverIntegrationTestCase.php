@@ -75,8 +75,6 @@ abstract class DriverIntegrationTestCase extends CacheTestCase
             'foo5' => 'hello',
         ], $result);
 
- 
-
         // test method `deleteMultiple`
         $cache->deleteMultiple(['foo3']);
 
@@ -109,11 +107,11 @@ abstract class DriverIntegrationTestCase extends CacheTestCase
     {
         $cache = $this->getCacheDriver();
 
-        $cache->set('foo', 'bar', 5);
+        $cache->set('foo', 'bar', 2);
         $this->assertSame('bar', $cache->get('foo'));
         $this->assertTrue($cache->has('foo'));
 
-        sleep(6);
+        sleep(3);
         $this->assertSame(null, $cache->get('foo'));
         $this->assertFalse($cache->has('foo'));
 

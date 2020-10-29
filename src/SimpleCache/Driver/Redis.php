@@ -229,26 +229,6 @@ class Redis extends CacheProvider
     }
 
     /**
-     * Fetch all cache items.
-     *
-     * @return array
-     */
-    protected function getAll(): array
-    {
-        $list = [];
-        $keys = $this->redis->keys('sc:*');
-
-        if (!empty($keys)) {
-            foreach ($keys as $key) {
-                $value = $this->doGet($key);
-                $key = str_replace('sc_', '', $key);
-                $list[$key] = $value;
-            }
-        }
-        return $list;
-    }
-
-    /**
      * Get the key name of a cache.
      *
      * @param string $key The key of a cache.
