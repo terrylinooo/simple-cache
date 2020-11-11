@@ -108,7 +108,7 @@ Trait AssertTrait
     {
         if (!is_dir($directory)) {
             throw new CacheException(
-                'The directory of the storage does not exist.'
+                'The directory of the storage does not exist. (' . $directory . ')'
             );
         }
 
@@ -116,7 +116,7 @@ Trait AssertTrait
 
         if (!is_writable($directory)) {
             throw new CacheException(
-                'The directory of the storage must be wriable'
+                'The directory of the storage must be wriable. (' . $directory . ')'
             );
         }
 
