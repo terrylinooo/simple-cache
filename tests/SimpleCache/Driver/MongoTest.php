@@ -68,4 +68,23 @@ class MongoTest extends DriverIntegrationTestCase
         $this->assertSame($items['foo9']['value'], 'bar9');
         $this->assertSame($items['foo10']['value'], 'bar10');
     }
+
+    public function testConnectWithUnixSocket()
+    {
+        $unixSocketFilePath = '/var/run/mongodb/mongodb.sock';
+
+        if (file_exists($unixSocketFilePath)) {
+            $cache = new Mongo([
+                'unix_socket' => $unixSocketFilePath,
+            ]);
+
+            $cache->set('mongodb_socket', 'good');
+            $this->assertSame('good', $cache->get('mongodb_socket'));
+        } else {
+            $this->console(sprintf(
+                'Ingore testing with unix domain socket because that file "%s" does not exist.',
+                $unixSocketFilePath
+            ));
+        }
+    }
 }

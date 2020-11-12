@@ -20,7 +20,7 @@ class MemcachedTest extends DriverIntegrationTestCase
     {
         $cache = new Memcached([
             'host' => '127.0.0.1',
-			'port' => 11211,
+            'port' => 11211,
         ]);
 
         return $cache;
@@ -35,5 +35,24 @@ class MemcachedTest extends DriverIntegrationTestCase
     {
         $driver = $this->getCacheDriver();
         $this->assertTrue($driver instanceof CacheInterface);
+    }
+
+    public function testConnectWithUnixSocket()
+    {
+        $unixSocketFilePath = '/var/run/memcached/memcached.sock';
+
+        if (file_exists($unixSocketFilePath)) {
+            $cache = new Memcached([
+                'unix_socket' => $unixSocketFilePath,
+            ]);
+
+            $cache->set('memcached_socket', 'good');
+            $this->assertSame('good', $cache->get('memcached_socket'));
+        } else {
+            $this->console(sprintf(
+                'Ingore testing with unix domain socket because that file "%s" does not exist.',
+                $unixSocketFilePath
+            ));
+        }
     }
 }

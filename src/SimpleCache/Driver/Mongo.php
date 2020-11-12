@@ -75,6 +75,9 @@ class Mongo extends CacheProvider
             'pass'       => null,
             'dbname'     => 'test',
             'collection' => 'cache_data',
+
+            // If the UNIX socket is set, host, port will be ignored.
+            'unix_socket' => '',
         ];
 
         foreach (array_keys($config) as $key) {
@@ -102,6 +105,7 @@ class Mongo extends CacheProvider
     {
         if (extension_loaded('mongodb')) {
             try {
+
                 $auth = '';
                 $dababase = '';
 
@@ -116,10 +120,16 @@ class Mongo extends CacheProvider
                     $dababase = '/' . $config['dbname'];
                 }
 
-                // Basic => mongodb://127.0.0.1:27017
-                // mongodb://user:pass@127.0.0.1:27017/dbname
-                $command = 'mongodb://' . $auth . $config['host'] . ':' . $config['port'] . $dababase;
-    
+                if (!empty($config['unix_socket'])) {
+                    // @codeCoverageIgnoreStart
+                    $command = 'mongodb://' . $auth . rawurlencode($config['unix_socket']) . $dababase;
+                    // @codeCoverageIgnoreEnd
+                } else {
+                    // Basic => mongodb://127.0.0.1:27017
+                    // mongodb://user:pass@127.0.0.1:27017/dbname
+                    $command = 'mongodb://' . $auth . $config['host'] . ':' . $config['port'] . $dababase;
+                }
+
                 $this->mongo = new MongoServer($command);
                 $this->concern = new WriteConcern(WriteConcern::MAJORITY, 1000);
 

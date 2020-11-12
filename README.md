@@ -17,17 +17,20 @@ The required parameters are marked by an asterisk (*)
 | Driver name | `($driver)`| PHP modules | `($config)`
 | --- | --- | --- | --- |
 | File | `file` | - | `*storage` |
-| Redis | `redis` | redis |  `host`, `port`, `user`, `pass` |
-| MongoDB | `mongo` | mongodb | `host`, `port`, `user`, `pass`, `dbname`, `collection` |
+| Redis | `redis` | redis |  `host`, `port`, `user`, `pass`, `unix_socket` |
+| MongoDB | `mongo` | mongodb | `host`, `port`, `user`, `pass`, `dbname`, `collection`, `unix_socket` |
 | MySQL | `mysql` | pdo_mysql | `host`, `port`, `*user`, `*pass`, `*dbname`, `table`, `charset` |
 | SQLite | `sqlite` | pdo_sqlite | `*storage` |
 | APC | `apc` | apc | - |
 | APCu | `apcu` | apcu | - |
-| Memcache | `memcache` | memcache | `host`, `port` |
-| LibMemcached | `memcached` | memcached | `host`, `port` |
+| Memcache | `memcache` | memcache | `host`, `port`, `unix_socket` |
+| LibMemcached | `memcached` | memcached | `host`, `port`, `unix_socket` |
 | WinCache | `wincache` | wincache | - |
 
-Note: **WinCache** is excluded from unit testing since it's only used on Windows, and the testing processes are done on Linux environment.
+Note: 
+
+- **WinCache** is excluded from unit testing since it's only used on Windows, and the testing processes are done on Linux environment.
+- `unix_socket` is empty by default, accepting the absolute path of the unix domain socket file. If it is set, `host` and `port` will be ignored.
 
 This command will show a list of the installed PHP modules.
 

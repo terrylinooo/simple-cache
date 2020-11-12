@@ -44,6 +44,9 @@ class Memcache extends CacheProvider
         $config = [
             'host' => '127.0.0.1',
             'port' => 11211,
+
+            // If the UNIX socket is set, host and port will be ignored.
+            'unix_socket' => '',
         ];
 
         foreach (array_keys($config) as $key) {
@@ -69,12 +72,23 @@ class Memcache extends CacheProvider
         if (extension_loaded('memcache')) {
             try {
                 $this->memcache = new MemcacheServer();
-                $this->memcache->addServer(
-                    $config['host'],
-                    $config['port'],
-                    true,
-                    1
-                );
+
+                if (!empty($config['unix_socket'])) {
+                    // @codeCoverageIgnoreStart
+                    $this->memcache->addServer(
+                        'unix://' . $config['unix_socket'],
+                        0
+                    );
+                    // @codeCoverageIgnoreEnd
+                } else {
+                    $this->memcache->addServer(
+                        $config['host'],
+                        $config['port'],
+                        true,
+                        1
+                    );
+                }
+
             // @codeCoverageIgnoreStart
             } catch (Exception $e) {
                 throw new CacheException($e->getMessage());

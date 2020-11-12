@@ -43,4 +43,23 @@ class RedisTest extends DriverIntegrationTestCase
 
         // Nothing happended??
     }
+
+    public function testConnectWithUnixSocket()
+    {
+        $unixSocketFilePath = '/var/run/redis/redis.sock';
+
+        if (file_exists($unixSocketFilePath)) {
+            $cache = new Redis([
+                'unix_socket' => $unixSocketFilePath,
+            ]);
+
+            $cache->set('redis_socket', 'good');
+            $this->assertSame('good', $cache->get('redis_socket'));
+        } else {
+            $this->console(sprintf(
+                'Ingore testing with unix domain socket because that file "%s" does not exist.',
+                $unixSocketFilePath
+            ));
+        }
+    }
 }

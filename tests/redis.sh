@@ -1,0 +1,1 @@
+php ../vendor/phpunit/phpunit/phpunit --configuration ../phpunit.xml --filter RedisTest ../tests/SimpleCache/Driver/RedisTest.php

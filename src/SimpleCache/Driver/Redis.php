@@ -48,6 +48,9 @@ class Redis extends CacheProvider
             'port' => 6379,
             'user' => null,
             'pass' => null,
+
+            // If the UNIX socket is set, host, port, user and pass will be ignored.
+            'unix_socket' => '',
         ];
 
         foreach (array_keys($config) as $key) {
@@ -73,8 +76,15 @@ class Redis extends CacheProvider
         if (extension_loaded('redis')) {
             try {
                 $this->redis = new RedisServer();
-                $this->redis->connect($config['host'], $config['port']);
-                $this->auth($config);
+
+                if (!empty($config['unix_socket'])) {
+                    // @codeCoverageIgnoreStart
+                    $this->redis->connect($config['unix_socket']);
+                    // @codeCoverageIgnoreEnd
+                } else {
+                    $this->redis->connect($config['host'], $config['port']);
+                    $this->auth($config);
+                }
 
             // @codeCoverageIgnoreStart
             } catch (Exception $e) {
