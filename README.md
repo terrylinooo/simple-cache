@@ -1,7 +1,7 @@
 # PSR-16 Simple Cache
 
 | GitHub Action | Travis CI |  Scrutinizer CI | Code Coverage | Code Quality |
-| --- | --- | --- | --- | --- |
+| ------------- | --------- | --------------- | ------------- | ------------ |
 | ![build](https://github.com/terrylinooo/simple-cache/workflows/build/badge.svg?branch=master) | [![Build Status](https://travis-ci.org/terrylinooo/simple-cache.svg?branch=master)](https://travis-ci.org/terrylinooo/simple-cache) | [![Build Status](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/build.png?b=master)](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/build-status/master) |  [![codecov](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/coverage.png?b=master)](https://codecov.io/gh/terrylinooo/simple-cache) |  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/?branch=master)
 
 PSR-16 simple cache drivers for PHP.
@@ -14,18 +14,18 @@ Simple Cache is used in [Cache Master](https://github.com/terrylinooo/cache-mast
 
 The required parameters are marked by an asterisk (*)
 
-| Driver name | `($driver)`| PHP modules | `($config)`
-| --- | --- | --- | --- |
-| File | `file` | - | `*storage` |
-| Redis | `redis` | redis |  `host`, `port`, `user`, `pass`, `unix_socket` |
-| MongoDB | `mongo` | mongodb | `host`, `port`, `user`, `pass`, `dbname`, `collection`, `unix_socket` |
-| MySQL | `mysql` | pdo_mysql | `host`, `port`, `*user`, `*pass`, `*dbname`, `table`, `charset` |
-| SQLite | `sqlite` | pdo_sqlite | `*storage` |
-| APC | `apc` | apc | - |
-| APCu | `apcu` | apcu | - |
-| Memcache | `memcache` | memcache | `host`, `port`, `unix_socket` |
-| LibMemcached | `memcached` | memcached | `host`, `port`, `unix_socket` |
-| WinCache | `wincache` | wincache | - |
+| Driver name  | `($driver)` | PHP modules | `($config)`                                                           |
+| ------------ | ----------- | ----------- | --------------------------------------------------------------------- |
+| File         | `file`      | -           | `*storage`                                                            |
+| Redis        | `redis`     | redis       |  `host`, `port`, `user`, `pass`, `unix_socket`                        |
+| MongoDB      | `mongo`     | mongodb     | `host`, `port`, `user`, `pass`, `dbname`, `collection`, `unix_socket` |
+| MySQL        | `mysql`     | pdo_mysql   | `host`, `port`, `*user`, `*pass`, `*dbname`, `table`, `charset`       |
+| SQLite       | `sqlite`    | pdo_sqlite  | `*storage`                                                            |
+| APC          | `apc`       | apc         | -                                                                     |
+| APCu         | `apcu`      | apcu        | -                                                                     |
+| Memcache     | `memcache`  | memcache    | `host`, `port`, `unix_socket`                                         |
+| LibMemcached | `memcached` | memcached   | `host`, `port`, `unix_socket`                                         |
+| WinCache     | `wincache`  | wincache    | -                                                                     |
 
 Note: 
 
@@ -455,7 +455,7 @@ $config = [
 ];
 ```
 It means there will be a `1%` chance of performing the garbage collection.
-Do not use it as 100% chance becasue it will fetch all keys and check them one by one, totally unnecessary. 
+Do not use it as 100% chance because it will fetch all keys and check them one by one, totally unnecessary. 
 
 Example:
 ```php
@@ -469,7 +469,7 @@ You can just use the `gc_enable` to enable garbage collection.
 
 ### Note
 
-For **Redis** and **Memcache**, **Memcached** drivers, there is no need to use this method becasue that the expired items will be cleared automatically.
+For **Redis** and **Memcache**, **Memcached** drivers, there is no need to use this method because the expired items will be cleared automatically.
 
 
 
@@ -481,11 +481,8 @@ For **Redis** and **Memcache**, **Memcached** drivers, there is no need to use t
 
 #### The story about this library
 
-This PHP library was born for the [12th Iornman Game](https://ithelp.ithome.com.tw/2020-12th-ironman) contest hosted by [ITHelp](https://ithelp.ithome.com.tw/), an IT community in Taiwan. I named my topic as "*Road to PHP Master - The Best Practice in Open Souce Code.*", written in traditional Chinese. [Read here](https://ithelp.ithome.com.tw/users/20111119/ironman/3269), if you're interested.
+This PHP library was born for the [12th Ironman Game](https://ithelp.ithome.com.tw/2020-12th-ironman) contest hosted by [ITHelp](https://ithelp.ithome.com.tw/), an IT community in Taiwan. I named my topic "*Road to PHP Master - The Best Practice in Open Souce Code.*", written in traditional Chinese. [Read here](https://ithelp.ithome.com.tw/users/20111119/ironman/3269), if you're interested.
 
 ## License
 
 MIT
-
-
-
