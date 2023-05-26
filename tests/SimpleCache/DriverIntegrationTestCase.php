@@ -22,17 +22,17 @@ abstract class DriverIntegrationTestCase extends CacheTestCase
 {
     /**
      * Get the cache driver for integration
-     * 
+     *
      * @return CacheInterface
      */
-    abstract function getCacheDriver();
+    abstract public function getCacheDriver();
 
     /**
      * Test the driver is an instance of CacheInterface.
      *
      * @return void
      */
-    abstract function testCacheDriver();
+    abstract public function testCacheDriver();
 
     public function testDriverCombinedTests()
     {

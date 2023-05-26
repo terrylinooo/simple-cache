@@ -19,7 +19,7 @@ use function unserialize;
 /**
  * A trait implements SQL-action methods.
  */
-Trait SqlTrait
+trait SqlTrait
 {
     /**
      * The PDO instance.
@@ -109,7 +109,7 @@ Trait SqlTrait
      * Delete a cache by an extended Cache Driver.
      *
      * @param string $key The key of a cache.
-     * 
+     *
      * @return bool
      */
     protected function doDelete(string $key): bool
@@ -125,7 +125,7 @@ Trait SqlTrait
 
     /**
      * Delete all caches by an extended Cache Driver.
-     * 
+     *
      * @return bool
      */
     protected function doClear(): bool
@@ -153,7 +153,7 @@ Trait SqlTrait
         $query = $this->db->prepare($sql);
         $query->bindValue(':cache_key', $key, PDO::PARAM_STR);
         $query->execute();
-        $count =$query->fetchColumn();
+        $count = $query->fetchColumn();
 
         return $count > 0;
     }

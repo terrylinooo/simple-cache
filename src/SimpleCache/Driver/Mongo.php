@@ -30,6 +30,8 @@ use function serialize;
  */
 class Mongo extends CacheProvider
 {
+    protected $type = 'mongo';
+
     /**
      * The MongoDB Manager instance.
      *
@@ -63,7 +65,7 @@ class Mongo extends CacheProvider
      * Constructor.
      *
      * @param array $setting The settings.
-     * 
+     *
      * @throws CacheException
      */
     public function __construct(array $setting = [])
@@ -96,21 +98,19 @@ class Mongo extends CacheProvider
      * Connect to MongoDB server.
      *
      * @param array $config The settings.
-     * 
+     *
      * @return void
-     * 
+     *
      * @throws CacheException
      */
     protected function connect(array $config): void
     {
         if (extension_loaded('mongodb')) {
             try {
-
                 $auth = '';
                 $dababase = '';
 
-                if (
-                    !empty($config['user']) && 
+                if (!empty($config['user']) &&
                     !empty($config['pass'])
                 ) {
                     $auth = $config['user'] . ':' . $config['pass'] . '@';
@@ -167,7 +167,7 @@ class Mongo extends CacheProvider
         $cursor = $this->mongo->executeQuery($this->getCollectionName(), $query);
 
         $data = [];
-        foreach($cursor as $document) {
+        foreach ($cursor as $document) {
             $data[] = unserialize($document->content);
         }
 
@@ -197,7 +197,7 @@ class Mongo extends CacheProvider
         ];
 
         $filter = [
-            '_id'=> $this->getKeyName($key),
+            '_id' => $this->getKeyName($key),
         ];
 
         $data = [
@@ -206,7 +206,7 @@ class Mongo extends CacheProvider
         ];
 
         $option = [
-            'multi'  => false, 
+            'multi'  => false,
             'upsert' => true,
         ];
 
@@ -220,7 +220,7 @@ class Mongo extends CacheProvider
      * Delete a cache by an extended Cache Driver.
      *
      * @param string $key The key of a cache.
-     * 
+     *
      * @return bool
      */
     protected function doDelete(string $key): bool
@@ -236,7 +236,7 @@ class Mongo extends CacheProvider
 
     /**
      * Delete all caches by an extended Cache Driver.
-     * 
+     *
      * @return bool
      */
     protected function doClear(): bool
@@ -299,7 +299,7 @@ class Mongo extends CacheProvider
 
     /**
      * Perform the write operation and return the result.
-     * 
+     *
      * @param object $bulk The \MongoDB\Driver\BulkWrite instance.
      *
      * @return bool
@@ -340,6 +340,6 @@ class Mongo extends CacheProvider
      */
     private function getCollectionName(): string
     {
-        return $this->dbname . '.' . $this->collection; 
+        return $this->dbname . '.' . $this->collection;
     }
 }

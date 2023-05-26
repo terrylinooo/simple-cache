@@ -26,7 +26,7 @@ class AssertTraitTest extends CacheTestCase
         $this->expectException(CacheArgumentException::class);
 
         $driver = new Cache('file', [
-            'storage' => create_tmp_directory()
+            'storage' => create_tmp_directory(),
         ]);
 
         $driver->get(['this_is_an_array']);
@@ -37,7 +37,7 @@ class AssertTraitTest extends CacheTestCase
         $this->expectException(CacheArgumentException::class);
 
         $driver = new Cache('file', [
-            'storage' => create_tmp_directory()
+            'storage' => create_tmp_directory(),
         ]);
 
         $driver->set(['this_is_an_array'], 'test');
@@ -48,7 +48,7 @@ class AssertTraitTest extends CacheTestCase
         $this->expectException(CacheArgumentException::class);
 
         $driver = new Cache('file', [
-            'storage' => create_tmp_directory()
+            'storage' => create_tmp_directory(),
         ]);
 
         $driver->set('foo', 'bar', 'invalid_ttl_value');
@@ -59,7 +59,7 @@ class AssertTraitTest extends CacheTestCase
         $this->expectException(CacheArgumentException::class);
 
         $driver = new Cache('file', [
-            'storage' => create_tmp_directory()
+            'storage' => create_tmp_directory(),
         ]);
 
         $driver->has(['this_is_an_array']);
@@ -70,7 +70,7 @@ class AssertTraitTest extends CacheTestCase
         $this->expectException(CacheArgumentException::class);
 
         $driver = new Cache('file', [
-            'storage' => create_tmp_directory()
+            'storage' => create_tmp_directory(),
         ]);
 
         $driver->setMultiple(['this_is_an_array'], 300);
@@ -81,7 +81,7 @@ class AssertTraitTest extends CacheTestCase
         $this->expectException(CacheArgumentException::class);
 
         $driver = new Cache('file', [
-            'storage' => create_tmp_directory()
+            'storage' => create_tmp_directory(),
         ]);
 
         $driver->setMultiple(['foo' => 'bar'], 'invalid_ttl_value');
@@ -92,7 +92,7 @@ class AssertTraitTest extends CacheTestCase
         $this->expectException(CacheArgumentException::class);
 
         $driver = new Cache('file', [
-            'storage' => create_tmp_directory()
+            'storage' => create_tmp_directory(),
         ]);
 
         $driver->deleteMultiple('this_is_an_array');
@@ -103,7 +103,7 @@ class AssertTraitTest extends CacheTestCase
         $this->expectException(CacheException::class);
 
         $driver = new Cache('file', [
-            'storage' => __DIR__ . '/../directory_not_exist'
+            'storage' => __DIR__ . '/../directory_not_exist',
         ]);
     }
 

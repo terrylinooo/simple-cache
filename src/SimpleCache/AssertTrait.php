@@ -26,7 +26,7 @@ use function sprintf;
 /**
  * This assert trait provides methods to check conditions.
  */
-Trait AssertTrait
+trait AssertTrait
 {
     /**
      * Check if the variable is string or not.
@@ -34,7 +34,7 @@ Trait AssertTrait
      * @param string $var The variable will be checked.
      *
      * @return void
-     * 
+     *
      * @throws CacheArgumentException
      */
     protected function assertArgumentString($value): void
@@ -55,7 +55,7 @@ Trait AssertTrait
      * @param iterable $value The variable will be checked.
      *
      * @return void
-     * 
+     *
      * @throws CacheArgumentException
      */
     protected function assertArgumentIterable($value): void
@@ -76,13 +76,12 @@ Trait AssertTrait
      * @param int|null|DateInterval $ttl The time to live of a cached data.
      *
      * @return void
-     * 
+     *
      * @throws CacheArgumentException
      */
     protected function assertValidTypeOfTtl($ttl): void
     {
-        if (
-            !is_null($ttl) &&
+        if (!is_null($ttl) &&
             !is_integer($ttl) &&
             !($ttl instanceof DateInterval)
         ) {
@@ -101,7 +100,7 @@ Trait AssertTrait
      * @param string $directory The path of a directory.
      *
      * @return void
-     * 
+     *
      * @throws CacheException
      */
     protected function assertDirectoryWritable(string $directory): void
@@ -135,7 +134,7 @@ Trait AssertTrait
      * @param array $settings The array of the settings.
      *
      * @return void
-     * 
+     *
      * @throws CacheArgumentException
      */
     protected function assertSettingFields($settings): void

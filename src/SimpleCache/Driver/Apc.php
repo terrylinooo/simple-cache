@@ -35,11 +35,13 @@ use function apc_store;
  */
 class Apc extends CacheProvider
 {
+    protected $type = 'apc';
+
     /**
      * Constructor.
      *
      * @param array $setting The settings.
-     * 
+     *
      * @throws CacheException
      */
     public function __construct(array $setting = [])
@@ -65,7 +67,7 @@ class Apc extends CacheProvider
     protected function doGet(string $key): array
     {
         $success = false;
-		$content = apc_fetch($this->getKeyName($key), $success);
+        $content = apc_fetch($this->getKeyName($key), $success);
 
         if (empty($content) || !$success) {
             return [];
@@ -90,7 +92,7 @@ class Apc extends CacheProvider
         $contents = [
             'timestamp' => $timestamp,
             'ttl'       => $ttl,
-            'value'     => $value
+            'value'     => $value,
         ];
 
         $result = apc_store(
@@ -106,7 +108,7 @@ class Apc extends CacheProvider
      * Delete a cache by an extended Cache Driver.
      *
      * @param string $key The key of a cache.
-     * 
+     *
      * @return bool
      */
     protected function doDelete(string $key): bool
@@ -116,7 +118,7 @@ class Apc extends CacheProvider
 
     /**
      * Delete all caches by an extended Cache Driver.
-     * 
+     *
      * @return bool
      */
     protected function doClear(): bool
@@ -167,4 +169,3 @@ class Apc extends CacheProvider
         return 'sc_' . $key;
     }
 }
-

@@ -19,7 +19,7 @@ class SqliteTest extends DriverIntegrationTestCase
     public function getCacheDriver()
     {
         $cache = new Sqlite([
-            'storage' => create_tmp_directory()
+            'storage' => create_tmp_directory(),
         ]);
 
         return $cache;

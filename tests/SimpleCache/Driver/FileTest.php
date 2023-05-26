@@ -19,7 +19,7 @@ class FileTest extends DriverIntegrationTestCase
     public function getCacheDriver()
     {
         $cache = new File([
-            'storage' => create_tmp_directory()
+            'storage' => create_tmp_directory(),
         ]);
 
         return $cache;

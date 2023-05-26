@@ -96,7 +96,6 @@ class CacheTest extends CacheTestCase
 
         // Start the garbage collection.
         if ($hit) {
-
             $settings = [
                 'gc_enable'      => true,
                 'gc_divisor'     => 1,
@@ -146,7 +145,7 @@ class CacheTest extends CacheTestCase
 
         // Test method `has()`
         $this->assertTrue($this->getInstance()->has('foo'));
-        $this->assertFalse($this->getInstance()->has('foo2'));
+        $this->assertFalse($this->getInstance()->has('fo123'));
 
         // Test method `delete()`
         $this->getInstance()->delete('foo');
@@ -226,7 +225,7 @@ class CacheTest extends CacheTestCase
         $this->assertTrue($driver->rebuild());
 
         $driver = new Cache('sqlite', [
-            'storage' => create_tmp_directory()
+            'storage' => create_tmp_directory(),
         ]);
 
         $this->assertTrue($driver->rebuild());

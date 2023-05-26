@@ -27,11 +27,13 @@ class Mysql extends CacheProvider
 {
     use SqlTrait;
 
+    protected $type = 'mysql';
+
     /**
      * Constructor.
      *
      * @param array $setting The settings.
-     * 
+     *
      * @throws CacheArgumentException
      */
     public function __construct($setting)
@@ -60,15 +62,15 @@ class Mysql extends CacheProvider
      * Connect to MySQL server.
      *
      * @param array $config The settings.
-     * 
+     *
      * @return void
-     * 
+     *
      * @throws CacheException
      */
     protected function connect(array $config): void
     {
-        $host = 'mysql' . 
-            ':host='   . $config['host'] . 
+        $host = 'mysql' .
+            ':host='   . $config['host'] .
             ';port='   . $config['port'] .
             ';dbname=' . $config['dbname'] .
             ';charset='. $config['charset'];
@@ -77,7 +79,6 @@ class Mysql extends CacheProvider
         $pass = $config['pass'];
 
         try {
-
             $this->db = new PDO($host, $user, $pass);
 
         // @codeCoverageIgnoreStart
@@ -88,7 +89,9 @@ class Mysql extends CacheProvider
     }
 
     /**
-     * @inheritDoc
+     *  Rebuild the cache storage.
+     *
+     * @return bool
      */
     public function rebuild(): bool
     {
@@ -102,12 +105,10 @@ class Mysql extends CacheProvider
             $this->db->query($sql);
 
         // @codeCoverageIgnoreStart
-
         } catch (Exception $e) {
             file_put_contents('php://stderr', $e->getMessage());
             return false;
         }
-
         // @codeCoverageIgnoreEnd
 
         return true;

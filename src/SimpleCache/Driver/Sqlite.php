@@ -24,6 +24,8 @@ class Sqlite extends CacheProvider
 {
     use SqlTrait;
 
+    protected $type = 'sqlite';
+
     /**
      * The absolute path of the storage's directory.
      * It must be writable.
@@ -36,7 +38,7 @@ class Sqlite extends CacheProvider
      * Constructor.
      *
      * @param array $setting The settings.
-     * 
+     *
      * @throws CacheException
      */
     public function __construct(array $setting = [])
@@ -51,8 +53,18 @@ class Sqlite extends CacheProvider
     }
 
     /**
+     * Is SQLite database existed?
+     *
+     * @return bool
+     */
+    protected function isSQLiteFileExisted(): bool
+    {
+        return file_exists($this->storage . '/cache.sqlite3');
+    }
+
+    /**
      * Delete all caches by an extended Cache Driver.
-     * 
+     *
      * @return bool
      */
     protected function doClear(): bool
@@ -66,12 +78,17 @@ class Sqlite extends CacheProvider
     }
 
     /**
-     * @inheritDoc
+     *  Rebuild the cache storage.
+     *
+     * @return bool
      */
     public function rebuild(): bool
     {
-        try {
+        if (!$this->isSQLiteFileExisted()) {
+            return false;
+        }
 
+        try {
             $sql = "CREATE TABLE IF NOT EXISTS {$this->table} (
                 cache_key VARCHAR(40) PRIMARY KEY,
                 cache_value LONGTEXT

@@ -20,11 +20,13 @@ use function array_keys;
 
 /**
  * A cache driver class provided by libMemcached
- * 
+ *
  * @see https://www.php.net/manual/en/book.memcached.php
  */
 class Memcached extends CacheProvider
 {
+    protected $type = 'memcached';
+
     /**
      * The Memcached instance.
      *
@@ -36,7 +38,7 @@ class Memcached extends CacheProvider
      * Constructor.
      *
      * @param array $setting The settings.
-     * 
+     *
      * @throws CacheException
      */
     public function __construct(array $setting = [])
@@ -62,9 +64,9 @@ class Memcached extends CacheProvider
      * Connect to Memchaced server.
      *
      * @param array $config The settings.
-     * 
+     *
      * @return void
-     * 
+     *
      * @throws CacheException
      */
     protected function connect(array $config): void
@@ -137,7 +139,7 @@ class Memcached extends CacheProvider
         $contents = [
             'timestamp' => $timestamp,
             'ttl'       => $ttl,
-            'value'     => $value
+            'value'     => $value,
         ];
 
         $result = $this->memcached->set(
@@ -153,7 +155,7 @@ class Memcached extends CacheProvider
      * Delete a cache by an extended Cache Driver.
      *
      * @param string $key The key of a cache.
-     * 
+     *
      * @return bool
      */
     protected function doDelete(string $key): bool
@@ -163,7 +165,7 @@ class Memcached extends CacheProvider
 
     /**
      * Delete all caches by an extended Cache Driver.
-     * 
+     *
      * @return bool
      */
     protected function doClear(): bool
@@ -188,4 +190,3 @@ class Memcached extends CacheProvider
         return true;
     }
 }
-

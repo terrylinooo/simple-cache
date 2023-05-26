@@ -29,7 +29,7 @@ use function wincache_ucache_set;
 
 /**
  * A cache driver class provided by WinCache (Windows Cache for PHP)
- * 
+ *
  * Note: This class is excluded from the unit tests since it is only used on
  * Windows server. And all our tests are run on Linux system.
  *
@@ -37,11 +37,13 @@ use function wincache_ucache_set;
  */
 class Wincache extends CacheProvider
 {
+    protected $type = 'wincache';
+
     /**
      * Constructor.
      *
      * @param array $setting The settings.
-     * 
+     *
      * @throws CacheException
      */
     public function __construct(array $setting = [])
@@ -106,7 +108,7 @@ class Wincache extends CacheProvider
      * Delete a cache by an extended Cache Driver.
      *
      * @param string $key The key of a cache.
-     * 
+     *
      * @return bool
      */
     protected function doDelete(string $key): bool
@@ -116,7 +118,7 @@ class Wincache extends CacheProvider
 
     /**
      * Delete all caches by an extended Cache Driver.
-     * 
+     *
      * @return bool
      */
     protected function doClear(): bool
@@ -155,4 +157,3 @@ class Wincache extends CacheProvider
         return $list;
     }
 }
-

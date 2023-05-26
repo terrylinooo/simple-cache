@@ -15,7 +15,7 @@ namespace Shieldon\SimpleCache;
 /**
  * For Cache Drivers which need to be cache-warming for performance reasons.
  */
-Trait CacheWarmingTrait
+trait CacheWarmingTrait
 {
     /**
      * A cache-warming pool in where stores data.
@@ -31,5 +31,5 @@ Trait CacheWarmingTrait
      *
      * @var array[]
      */
-    protected  $pool = [];
+    protected $pool = [];
 }

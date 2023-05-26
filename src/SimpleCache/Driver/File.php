@@ -31,6 +31,8 @@ use function unserialize;
  */
 class File extends CacheProvider
 {
+    protected $type = 'file';
+
     /**
      * The absolute path of the storage's directory.
      * It must be writable.
@@ -43,7 +45,7 @@ class File extends CacheProvider
      * Constructor.
      *
      * @param array $setting The settings.
-     * 
+     *
      * @throws CacheException
      */
     public function __construct(array $setting = [])
@@ -90,7 +92,7 @@ class File extends CacheProvider
         $contents = [
             'timestamp' => $timestamp,
             'ttl'       => $ttl,
-            'value'     => $value
+            'value'     => $value,
         ];
 
         $filePath = $this->getFilePath($key);
@@ -109,7 +111,7 @@ class File extends CacheProvider
      * Delete a cache by an extended Cache Driver.
      *
      * @param string $key The key of a cache.
-     * 
+     *
      * @return bool
      */
     protected function doDelete(string $key): bool
@@ -121,7 +123,7 @@ class File extends CacheProvider
 
     /**
      * Delete all caches by an extended Cache Driver.
-     * 
+     *
      * @return bool
      */
     protected function doClear(): bool

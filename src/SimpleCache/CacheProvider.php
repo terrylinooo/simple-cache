@@ -29,6 +29,15 @@ abstract class CacheProvider implements CacheInterface
     use AssertTrait;
 
     /**
+     * The type of cache driver.
+     *
+     * @var string
+     */
+    protected $type = '';
+
+    /**
+     * Get a cache by an extended Cache Driver.
+     *
      * @inheritDoc
      */
     public function get($key, $default = null)
@@ -50,6 +59,8 @@ abstract class CacheProvider implements CacheInterface
     }
 
     /**
+     * Set a cache by an extended Cache Driver.
+     *
      * @inheritDoc
      */
     public function set($key, $value, $ttl = null)
@@ -61,7 +72,6 @@ abstract class CacheProvider implements CacheInterface
 
         if (is_null($ttl)) {
             $ttl = 0;
-
         } elseif ($ttl instanceof DateInterval) {
             $datetimeObj = new DateTime();
             $datetimeObj->add($ttl);
@@ -73,6 +83,8 @@ abstract class CacheProvider implements CacheInterface
     }
 
     /**
+     * Delete a cache by an extended Cache Driver.
+     *
      * @inheritDoc
      */
     public function delete($key)
@@ -83,6 +95,8 @@ abstract class CacheProvider implements CacheInterface
     }
 
     /**
+     * Clear all caches by an extended Cache Driver.
+     *
      * @inheritDoc
      */
     public function clear()
@@ -91,6 +105,8 @@ abstract class CacheProvider implements CacheInterface
     }
 
     /**
+     * Check if a cache exists by an extended Cache Driver.
+     *
      * @inheritDoc
      */
     public function has($key)
@@ -105,6 +121,8 @@ abstract class CacheProvider implements CacheInterface
     }
 
     /**
+     * Get multiple caches by an extended Cache Driver.
+     *
      * @inheritDoc
      */
     public function getMultiple($keys, $default = null)
@@ -121,6 +139,8 @@ abstract class CacheProvider implements CacheInterface
     }
 
     /**
+     * Set multiple caches by an extended Cache Driver.
+     *
      * @inheritDoc
      */
     public function setMultiple($values, $ttl = null)
@@ -139,6 +159,8 @@ abstract class CacheProvider implements CacheInterface
     }
 
     /**
+     * Delete multiple caches by an extended Cache Driver.
+     *
      * @inheritDoc
      */
     public function deleteMultiple($keys)
@@ -157,7 +179,7 @@ abstract class CacheProvider implements CacheInterface
     }
 
     /**
-     * Performing cache data garbage collection for drivers that don't have 
+     * Performing cache data garbage collection for drivers that don't have
      * ability to remove expired items automatically.
      * This method is not needed for Redis and Memcached driver.
      *
@@ -177,7 +199,6 @@ abstract class CacheProvider implements CacheInterface
         $list   = [];
 
         if ($hit === 1) {
-
             // Always return [] from Redis and Memcached driver.
             $data = $this->getAll();
 
@@ -197,12 +218,17 @@ abstract class CacheProvider implements CacheInterface
         return $list;
     }
 
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
     /**
      * Check if the TTL is expired or not.
      *
      * @param int $ttl       The time to live of a cached data.
      * @param int $timestamp The unix timesamp that want to check.
-     * 
+     *
      * @return bool
      */
     protected function isExpired(int $ttl, int $timestamp): bool
@@ -212,7 +238,6 @@ abstract class CacheProvider implements CacheInterface
         // If $ttl equal to 0 means that never expires.
         if (empty($ttl)) {
             return false;
-
         } elseif ($now - $timestamp < $ttl) {
             return false;
         }
@@ -248,7 +273,6 @@ abstract class CacheProvider implements CacheInterface
      *   ],
      *   ...
      * ]
-     *
      */
     abstract protected function doGet(string $key): array;
 
@@ -268,23 +292,23 @@ abstract class CacheProvider implements CacheInterface
      * Delete a cache by an extended Cache Driver.
      *
      * @param string $key The key of a cache.
-     * 
+     *
      * @return bool
      */
     abstract protected function doDelete(string $key): bool;
 
     /**
      * Delete all caches by an extended Cache Driver.
-     * 
+     *
      * @return bool
      */
     abstract protected function doClear(): bool;
 
     /**
      * Check if a cahce exists or not.
-     * 
+     *
      * @param string $key The key of a cache.
-     * 
+     *
      * @return bool
      */
     abstract protected function doHas(string $key): bool;

@@ -22,6 +22,8 @@ class Mock extends CacheProvider
 {
     use CacheWarmingTrait;
 
+    protected $type = 'mock';
+
     /**
      * Fetch a cache by an extended Cache Driver.
      *
@@ -51,7 +53,7 @@ class Mock extends CacheProvider
     protected function doSet(string $key, $value, int $ttl, int $timestamp): bool
     {
         $this->pool[$key] = [
-            'value'     =>  $value,
+            'value'     => $value,
             'ttl'       => $ttl,
             'timestamp' => $timestamp,
         ];
@@ -63,7 +65,7 @@ class Mock extends CacheProvider
      * Delete a cache by an extended Cache Driver.
      *
      * @param string $key The key of a cache.
-     * 
+     *
      * @return bool
      */
     protected function doDelete(string $key): bool
@@ -75,7 +77,7 @@ class Mock extends CacheProvider
 
     /**
      * Delete all caches by an extended Cache Driver.
-     * 
+     *
      * @return bool
      */
     protected function doClear(): bool

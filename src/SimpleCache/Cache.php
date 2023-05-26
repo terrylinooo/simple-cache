@@ -37,14 +37,13 @@ class Cache
      *
      * @param string|CacheInterface $driver   The cache driver.
      * @param array                 $settings The settings.
-     * 
+     *
      * @throws CacheException
      */
-    public function __construct($driver = '', array $settings = [])
+    public function __construct($driver = null, array $settings = [])
     {
         if ($driver instanceof CacheInterface) {
             $this->driver = $driver;
-
         } elseif (is_string($driver)) {
             $class = ucfirst(strtolower($driver));
 
@@ -64,7 +63,11 @@ class Cache
     }
 
     /**
-     * @inheritDoc CacheInterface
+     * Get the cache.
+     *
+     * @param string $ket The key of a cache.
+     * @param mixed  $val The value of a cache.
+     * @return mixed
      */
     public function get($key, $default = null)
     {
@@ -72,7 +75,12 @@ class Cache
     }
 
     /**
-     * @inheritDoc CacheInterface
+     * Set a cache.
+     *
+     * @param string $key   The key of a cache.
+     * @param mixed  $value The value of a cache.
+     * @param int    $ttl   The time to live.
+     * @return bool
      */
     public function set($key, $value, $ttl = null)
     {
@@ -80,7 +88,10 @@ class Cache
     }
 
     /**
-     * @inheritDoc CacheInterface
+     * Delete a cache.
+     *
+     * @param string $key The key of a cache.
+     * @return bool
      */
     public function delete($key)
     {
@@ -88,7 +99,9 @@ class Cache
     }
 
     /**
-     * @inheritDoc CacheInterface
+     * Clear all caches.
+     *
+     * @return bool
      */
     public function clear()
     {
@@ -96,7 +109,10 @@ class Cache
     }
 
     /**
-     * @inheritDoc CacheInterface
+     * Check if a cache exists.
+     *
+     * @param string $key The key of a cache.
+     * @return bool
      */
     public function has($key)
     {
@@ -104,7 +120,11 @@ class Cache
     }
 
     /**
-     * @inheritDoc CacheInterface
+     * Get multiple caches.
+     *
+     * @param array $keys    The keys of a cache.
+     * @param mixed $default The default value.
+     * @return iterable
      */
     public function getMultiple($keys, $default = null)
     {
@@ -112,7 +132,11 @@ class Cache
     }
 
     /**
-     * @inheritDoc CacheInterface
+     * Set multiple caches.
+     *
+     * @param array $values The keys and values of a cache.
+     * @param int   $ttl    The number of seconds until the cache will expire.
+     * @return bool
      */
     public function setMultiple($values, $ttl = null)
     {
@@ -120,7 +144,10 @@ class Cache
     }
 
     /**
-     * @inheritDoc CacheInterface
+     * Delete multiple caches.
+     *
+     * @param array $keys The keys of a cache.
+     * @return bool
      */
     public function deleteMultiple($keys)
     {
@@ -156,8 +183,13 @@ class Cache
         ]);
     }
 
+    public function getType(): string
+    {
+        return $this->driver->getType();
+    }
+
     /**
-     * Performing cache data garbage collection for drivers that don't have 
+     * Performing cache data garbage collection for drivers that don't have
      * ability to remove expired items automatically.
      * This method is not needed for Redis and Memcached driver.
      *
@@ -174,7 +206,7 @@ class Cache
         $removedList = [];
 
         $probability = $settings['gc_probability'] ?? 1;
-        $divisor     = $settings['gc_divisor']     ?? 100;
+        $divisor     = $settings['gc_divisor'] ?? 100;
 
         if (method_exists($this->driver, 'gc')) {
             $removedList = $this->driver->gc($probability, $divisor);
