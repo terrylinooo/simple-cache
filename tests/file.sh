@@ -1,1 +1,0 @@
-php ../vendor/phpunit/phpunit/phpunit --configuration ../phpunit.xml --filter FileTest ../tests/SimpleCache/Driver/FileTest.php

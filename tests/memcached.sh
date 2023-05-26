@@ -1,1 +1,0 @@
-php ../vendor/phpunit/phpunit/phpunit --configuration ../phpunit.xml --filter MemcachedTest ../tests/SimpleCache/Driver/MemcachedTest.php

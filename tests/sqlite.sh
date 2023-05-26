@@ -1,1 +1,0 @@
-php ../vendor/phpunit/phpunit/phpunit --configuration ../phpunit.xml --filter SqliteTest ../tests/SimpleCache/Driver/SqliteTest.php
