@@ -34,12 +34,15 @@ class CacheTest extends CacheTestCase
     public function getInstance($type = 'file', $settings = [])
     {
         switch ($type) {
-            case 'apc':
-            case 'apcu':
-            case 'memcache':
-            case 'memcached':
-            case 'mongo':
+            case 'file':
+            case 'sqlite':
+                $settings['storage'] = create_tmp_directory();
+                $driver = new Cache('file', $settings);
+                break;
+
             case 'redis':
+                $settings['user'] = 'hello';
+                $settings['pass'] = 'world';
                 $driver = new Cache($type, $settings);
                 break;
 
@@ -47,22 +50,13 @@ class CacheTest extends CacheTestCase
                 $settings['dbname'] = 'shieldon_unittest';
                 $settings['user']   = 'shieldon';
                 $settings['pass']   = 'taiwan';
-
                 $driver = new Cache($type, $settings);
                 break;
 
-            case 'sqlite':
-                $settings['storage'] = create_tmp_directory();
-                $driver = new Cache($type, $settings);
-                break;
-
-            case 'file':
             default:
-                $settings['storage'] = create_tmp_directory();
-                $driver = new Cache('file', $settings);
+                $driver = new Cache($type, $settings);
                 break;
         }
-
         return $driver;
     }
 

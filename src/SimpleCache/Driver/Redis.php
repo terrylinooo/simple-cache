@@ -112,17 +112,15 @@ class Redis extends CacheProvider
      */
     protected function auth(array $config = []): void
     {
-        if ($this->getVersion() >= 6) {
-            if (!empty($config['user']) && !empty($config['pass'])) {
+        if (!empty($config['pass'])) {
+            if ($this->getVersion() >= 6 && !empty($config['user'])) {
                 $this->redis->auth([
                     $config['user'],
                     $config['pass'],
                 ]);
+                return;
             }
-            return;
-        }
 
-        if (!empty($config['pass'])) {
             $this->redis->auth($config['pass']);
         }
     }
@@ -130,7 +128,7 @@ class Redis extends CacheProvider
     /**
      * Get Redis version number.
      */
-    protected function getVersion(): int
+    public function getVersion(): int
     {
         $info = $this->redis->info();
 

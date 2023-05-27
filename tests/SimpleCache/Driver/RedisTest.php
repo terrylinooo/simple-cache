@@ -19,7 +19,6 @@ class RedisTest extends DriverIntegrationTestCase
     public function getCacheDriver()
     {
         $cache = new Redis();
-
         return $cache;
     }
 
