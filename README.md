@@ -476,10 +476,50 @@ For the **Redis**, **Memcache**, and **Memcached** drivers, this method isn't ne
 
 ---
 
+##  Contributing
+
+Thank you for your interest in contributing to our project! We welcome contributions from everyone. Before getting started, please take a moment to review the guidelines below:
+
+### Guidelines
+
+- Fork the repository and create your branch from master.
+- Make sure your code follows our coding style and conventions.
+- Keep your code concise, well-documented, and modular.
+- Write clear commit messages that describe the purpose of your changes.
+- Test your changes thoroughly to ensure they don't introduce any new issues.
+- Make sure your code builds successfully without any errors or warnings.
+- Update relevant documentation, including README files if necessary.
+- Submit a pull request (PR) to the master branch of the original repository.
+
+### Code Testing
+
+We utilize a Docker image that includes various dependencies for our code testing. The image is based on `/tests/Fixture/docker/Dockerfile` and is preconfigured with the following components:
+
+- Redis
+- MongoDB
+- MySQL
+- PHP
+- Memcached
+- APCu
+
+Follow the steps below to run the tests:
+
+- Make sure you have Docker installed on your machine. If not, you can download and install it from the official Docker website.
+- Navigate to the project directory and build the Docker image by running the following command:
+    ```
+    composer test:docker:build
+    ```
+- Once the Docker image is built, you can run the tests by executing the following command:
+    ```
+    composer test:docker:run
+    ```
+- Observe the test results and make note of any failures or errors. The output will be displayed in the terminal.
+
+---
+
 ## Author
 
-- [Terry L.](https://terryl.in/) from Tainan, Taiwan.
-
+- [Terry L.](https://terryl.in/) and contributers, such as [Jimmy](https://colocal.com) and others.
 
 #### The Origin of this Library
 
