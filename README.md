@@ -4,11 +4,11 @@
 | ------------- | --------- | --------------- | ------------- | ------------ |
 | ![build](https://github.com/terrylinooo/simple-cache/workflows/build/badge.svg?branch=master) | [![Build Status](https://travis-ci.org/terrylinooo/simple-cache.svg?branch=master)](https://travis-ci.org/terrylinooo/simple-cache) | [![Build Status](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/build.png?b=master)](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/build-status/master) |  [![codecov](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/coverage.png?b=master)](https://codecov.io/gh/terrylinooo/simple-cache) |  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/terrylinooo/simple-cache/?branch=master)
 
-PSR-16 simple cache drivers for PHP.
+Caching, a common performance-boosting technique, is a staple feature in many frameworks and libraries. This interoperability allows libraries to utilize existing caching implementations rather than creating their own. PSR-6 has addressed this issue, but its formal and verbose nature complicates simple use cases. PSR-16 is a simpler approach seeks to create a streamlined standard interface for common situations, ensuring compatibility with PSR-6 in a straightforward manner.
 
 ***Showcase***
 
-Simple Cache is used in [Cache Master](https://github.com/terrylinooo/cache-master), a [WordPress Cache Plugin](https://wordpress.org/plugins/cache-master/), and works great. Check it out if you are running WordPress sites, it will not let you down.
+Simple Cache is utilized in [Cache Master](https://github.com/terrylinooo/cache-master), a [WordPress Cache Plugin](https://wordpress.org/plugins/cache-master/), and it performs excellently. Check it out if you're running WordPress sites; it won't let you down.
 
 #### Built-in drivers:
 
@@ -17,7 +17,7 @@ The required parameters are marked by an asterisk (*)
 | Driver name  | `($driver)` | PHP modules | `($config)`                                                           |
 | ------------ | ----------- | ----------- | --------------------------------------------------------------------- |
 | File         | `file`      | -           | `*storage`                                                            |
-| Redis        | `redis`     | redis       |  `host`, `port`, `user`, `pass`, `unix_socket`                        |
+| Redis        | `redis`     | redis       | `host`, `port`, `user`, `pass`, `unix_socket`                         |
 | MongoDB      | `mongo`     | mongodb     | `host`, `port`, `user`, `pass`, `dbname`, `collection`, `unix_socket` |
 | MySQL        | `mysql`     | pdo_mysql   | `host`, `port`, `*user`, `*pass`, `*dbname`, `table`, `charset`       |
 | SQLite       | `sqlite`    | pdo_sqlite  | `*storage`                                                            |
@@ -32,12 +32,12 @@ Note:
 - **WinCache** is excluded from unit testing since it's only used on Windows, and the testing processes are done on Linux environment.
 - `unix_socket` is empty by default, accepting the absolute path of the unix domain socket file. If it is set, `host` and `port` will be ignored.
 
-This command will show a list of the installed PHP modules.
+The following command displays a list of installed PHP modules.
 
 ```bash
 php -m
 ```
-Before you use, make sure you have the required PHP modules installed on the system.
+Before using, make sure the required PHP modules are installed on your system.
 
 ---
 
@@ -381,7 +381,7 @@ if ($cache->clear()) {
 public function clearExpiredItems(): array
 ```
 
-This method will return a list of the removed cache keys.
+This method returns a list of deleted cache keys.
 
 *Note*: **Redis** and **Memcache**, **Memcached** drivers will always return an empty array. See *Garbage Collection* section below.
 
@@ -411,9 +411,9 @@ var_dump($expiredItems);
 
 ## Build Data Schema
 
-For the first time of the use of the MySQL and SQLite drivers, the data schema is needed to build.
+The data schema needs to be built for the initial use of MySQL and SQLite drivers.
 
-You can use this API to make it.
+This API can be utilized for this purpose.
 
 ```php
 $cache->rebuild();
@@ -444,9 +444,10 @@ CREATE TABLE IF NOT EXISTS cache_data (
 
 ## Garbage Collection
 
-For built-in drivers, you can enable the garbage collection to clear expired cache from your system automatically.
+For built-in drivers, enabling garbage collection will automatically clear expired cache from your system.
 
-Use those parameters:
+Use the following parameters:
+
 ```php
 $config = [
     'gc_enable'      => true,
@@ -454,8 +455,10 @@ $config = [
     'gc_probability' => 1, // default
 ];
 ```
-It means there will be a `1%` chance of performing the garbage collection.
-Do not use it as 100% chance because it will fetch all keys and check them one by one, totally unnecessary. 
+
+This implies a 1% probability of executing garbage collection.
+Avoid setting it to 100% as it will unnecessarily fetch and check all keys one by one.
+
 
 Example:
 ```php
@@ -469,9 +472,7 @@ You can just use the `gc_enable` to enable garbage collection.
 
 ### Note
 
-For **Redis** and **Memcache**, **Memcached** drivers, there is no need to use this method because the expired items will be cleared automatically.
-
-
+For the **Redis**, **Memcache**, and **Memcached** drivers, this method isn't necessary as expired items are automatically cleared.
 
 ---
 
@@ -479,9 +480,10 @@ For **Redis** and **Memcache**, **Memcached** drivers, there is no need to use t
 
 - [Terry L.](https://terryl.in/) from Tainan, Taiwan.
 
-#### The story about this library
 
-This PHP library was born for the [12th Ironman Game](https://ithelp.ithome.com.tw/2020-12th-ironman) contest hosted by [ITHelp](https://ithelp.ithome.com.tw/), an IT community in Taiwan. I named my topic "*Road to PHP Master - The Best Practice in Open Souce Code.*", written in traditional Chinese. [Read here](https://ithelp.ithome.com.tw/users/20111119/ironman/3269), if you're interested.
+#### The Origin of this Library
+
+This PHP library was created for the [12th Ironman Game](https://ithelp.ithome.com.tw/2020-12th-ironman) competition, hosted by ITHelp, a Taiwanese IT community. My chosen topic was "Road to PHP Master - The Best Practice in Open Source Code", composed in traditional Chinese. You can read it [here](https://ithelp.ithome.com.tw/users/20111119/ironman/3269) if you're interested.
 
 ## License
 

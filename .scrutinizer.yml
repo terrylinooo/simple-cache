@@ -18,7 +18,7 @@ build:
       version: 7.2.5
       pecl_extensions:
         - redis
-        - memcache
+        - memcache-4.0.5.2
         - memcached
         - APCu
         - apcu_bc
