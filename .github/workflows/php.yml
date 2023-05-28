@@ -1,4 +1,4 @@
-name: testing
+name: build
 
 on:
   push:
@@ -12,12 +12,20 @@ jobs:
       strategy:
         matrix:
           operating-system: [ubuntu-latest]
-          php-versions: ['7.1', '7.2', '7.3']
+          php-versions: ['7.2', '7.3', '7.4']
           mongodb-version: ['4.0']
       name: PHP ${{ matrix.php-versions }}
  
       steps:
         - uses: actions/checkout@v2
+
+        - name: Setup PHP with Xdebug
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ matrix.php-versions }}
+            extensions: mbstring, pdo, pdo_mysql, intl, zip, redis, ctype, json, apc, apcu, memcache, memcached, mongodb
+            ini-values: apc.enable_cli=On
+            coverage: xdebug
         
         - name: Start MySQL service
           run: sudo service mysql start
@@ -37,14 +45,6 @@ jobs:
         - name: Start Redis service.
           run: sudo service redis-server start
  
-        - name: Setup PHP with Xdebug
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: ${{ matrix.php-versions }}
-            extensions: mbstring, pdo, pdo_mysql, intl, zip, redis, ctype, json, apc, apcu, memcache, memcached, mongodb
-            ini-values: apc.enable_cli=On
-            coverage: xdebug
-
         - name: Start MongoDB v${{ matrix.mongodb-version }}
           uses: supercharge/mongodb-github-action@1.2.0
           with:
