@@ -34,7 +34,7 @@ jobs:
           run: sudo mysql -uroot -proot -h 127.0.0.1 -e 'CREATE DATABASE shieldon_unittest;'
 
         - name: MySQL - Create user.	
-          run: sudo mysql -uroot -proot -h 127.0.0.1 -e "CREATE USER 'shieldon'@'localhost' IDENTIFIED BY 'taiwan';"	
+          run: sudo mysql -uroot -proot -h 127.0.0.1 -e "CREATE USER 'shieldon'@'localhost' IDENTIFIED WITH mysql_native_password BY 'taiwan';"	
 
         - name: MySQL - Grant permission.	
           run: sudo mysql -uroot -proot -h 127.0.0.1 -e "GRANT ALL ON shieldon_unittest.* TO 'shieldon'@'localhost';"
@@ -42,19 +42,28 @@ jobs:
         - name: Install Redis service.
           run: sudo apt-get install -y redis-server
 
-        - name: Start Redis service.
-          run: sudo service redis-server start
- 
-        - name: Start MongoDB v${{ matrix.mongodb-version }}
-          uses: supercharge/mongodb-github-action@1.2.0
-          with:
-            mongodb-version: ${{ matrix.mongodb-version }}
+        - name: Set Redis ACL authorization
+          run: |
+            sudo chmod +x ./.github/workflows/update_acl.sh
+            sudo ./.github/workflows/update_acl.sh
 
+        - name: Debug - Show redis.conf
+          run: sudo cat /etc/redis/redis.conf
+
+        - name: Debug - Show users.acl
+          run: sudo cat /etc/redis/users.acl
+
+        - name: Start Redis service.
+          run: sudo service redis-server restart
+ 
         - name: Install Memcached service.
           run: sudo apt-get install -y memcached
 
         - name: Start Memcached service.
           run: sudo service memcached start
+
+        - name: Start MongoDB v${{ matrix.mongodb-version }}
+          uses: supercharge/mongodb-github-action@1.2.0
        
         - name: Create a folder for testing.
           run: sudo mkdir /home/runner/work/simple-cache/simple-cache/tmp
